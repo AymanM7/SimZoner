@@ -62,19 +62,25 @@ design regardless. See §4 for the arithmetic that forces it.
 │ (SQLite-backed)     │     │  driver agents           │
 │ race state +        │     │  ⚠ 10k neurons/day       │
 │ physics loop        │     └──────────────────────────┘
-│ 1 DO per race       │
-└─────────────────────┘
+│ + hot decision cache│
+│ 1 DO per race       │     ┌──────────────┐  ┌────────────┐
+└─────────────────────┘     │      KV      │  │     R2     │
+                            │ warm config, │  │  replay    │
+                            │ spec lookups │  │  blobs     │
+                            │ ⚠ 1k writes/d│  │  10 GB     │
+                            └──────────────┘  └────────────┘
 ```
 
 | Component | Role | Why it's here |
 |---|---|---|
 | **Pages** | UI, replay viewer | Free, unlimited bandwidth |
 | **Worker** | API, orchestration | Entry point; 10ms CPU means it delegates, never computes |
-| **Durable Object** | Race state + physics | Authoritative single-threaded state; SQLite-backed DOs are free-tier eligible |
+| **Durable Object** | Race state + physics + **hot cache** | Authoritative single-threaded state; SQLite-backed DOs are free-tier eligible. 100k SQL writes/day — see §4.1 |
 | **Workers AI** | Driver agents, embeddings | Inference only — see §5 |
 | **Vectorize** | Spec + highway retrieval | Semantic lookup at race *setup*, never in the loop |
 | **D1** | Catalog, results, leaderboards | Relational, exact-match data |
-| **R2** *(optional)* | Replay blobs | 10 GB free; only if replays outgrow DO storage |
+| **KV** | Warm config, spec lookups, static reads | Read-optimized: 100k reads/day but **only 1k writes/day**. Read-mostly data only — see §4.1 |
+| **R2** *(optional)* | Replay blobs | 10 GB free, egress free; only if replays outgrow DO storage |
 
 ---
 
@@ -86,17 +92,21 @@ design regardless. See §4 for the arithmetic that forces it.
 | Workers AI | **10,000 neurons/day** | **The binding constraint** |
 | Vectorize | 5M stored dims · 30M queried/mo · 1,536 max dims | Ample |
 | D1 | 500 MB/db · 5M rows read/day · 100k written/day · **50 queries per invocation** | Ample if we batch |
-| Durable Objects | SQLite-backed only · 100k req/day · 13,000 GB-s/day · 5 GB | Free tier confirmed |
+| **KV** | 100k reads/day · **1,000 writes/day** · 1 GB · 512 B key · 25 MiB value · **1 write/sec to same key** | **Writes are tight — see §4.1** |
+| Durable Objects | SQLite-backed only · 100k req/day · 13,000 GB-s/day · 5M SQL reads/day · **100k SQL writes/day** · 5 GB | Free tier confirmed |
+| R2 | 10 GB · 1M Class A ops/mo · 10M Class B ops/mo · **egress free** | Ample |
 | Pages | 500 builds/mo · unlimited bandwidth | Ample |
 
 Sources: [Workers limits](https://developers.cloudflare.com/workers/platform/limits/) ·
 [Workers AI pricing](https://developers.cloudflare.com/workers-ai/platform/pricing/) ·
 [Vectorize limits](https://developers.cloudflare.com/vectorize/platform/limits/) ·
 [D1 limits](https://developers.cloudflare.com/d1/platform/limits/) ·
-[DO pricing](https://developers.cloudflare.com/durable-objects/platform/pricing/)
+[KV limits](https://developers.cloudflare.com/kv/platform/limits/) ·
+[DO pricing](https://developers.cloudflare.com/durable-objects/platform/pricing/) ·
+[R2 pricing](https://developers.cloudflare.com/r2/pricing/)
 
-**Only two of these matter: neurons and CPU.** Everything else is far beyond hobby scale.
-Don't spend effort optimizing storage or request counts.
+**Three of these matter: neurons, CPU, and KV writes.** Storage, request counts, Vectorize, R2,
+and Pages bandwidth are all far beyond hobby scale — don't spend effort optimizing them.
 
 ---
 
@@ -128,8 +138,39 @@ tick is not "expensive," it's structurally impossible.
 4. **Llama 3.2 1B for routine calls**, escalate to 8B only for high-stakes moments. ~7× more
    races/day.
 5. **Cache quantized states.** Bucket (gap, closing speed, lane, risk profile) into a discrete
-   key. Driver situations repeat heavily within a race.
+   key. Driver situations repeat heavily within a race. **Put this cache in DO SQLite, not KV —
+   see §4.1.**
 6. **AI Gateway** in front — free on all plans, dedupes identical prompts.
+
+### 4.1 Where the cache lives — KV's write limit is a trap
+
+KV's free tier is **100,000 reads/day but only 1,000 writes/day** — a 100:1 ratio. It is built
+for read-mostly data, and a decision cache is write-heavy on every miss. Do the arithmetic
+before assuming KV works:
+
+| Scenario | Decisions/day | Cache misses @ 60% hit rate | vs KV's 1k writes/day |
+|---|---|---|---|
+| Llama 3.1 8B (~3 races/day) | ~120 | ~48 writes | Fine |
+| **Llama 3.2 1B (~20 races/day)** | **~2,400** | **~960 writes** | **At the limit** |
+
+**Note the trap:** switching to the 1B model is mitigation #4 — the very thing that buys ~7×
+more races/day. But it multiplies cache writes by the same factor and lands you flush against
+KV's ceiling. **The optimization that relieves the neuron budget is the one that breaks the KV
+budget.** Add a cold-start day (0% hit rate) or a lower hit rate than assumed and you're over.
+
+Also note **1 write/sec to the same key** — a hot key under concurrent races will throttle.
+
+**Decision:**
+
+| Data | Store | Why |
+|---|---|---|
+| Hot LLM decision cache | **DO SQLite** | 100k writes/day — 100× KV's headroom, and it's already the DO's own state |
+| Vehicle specs, route config, static lookups | **KV** | Written once, read constantly — exactly KV's shape |
+| Race results, leaderboards | **D1** | Relational, queryable |
+| Replay blobs | **R2** | Large, immutable, free egress |
+
+KV stays in the stack — pointed at read-mostly data where its 100k reads/day is genuinely
+useful. It just isn't the decision cache.
 
 ---
 
