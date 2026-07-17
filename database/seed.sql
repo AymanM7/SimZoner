@@ -71,3 +71,42 @@ INSERT INTO route_segments VALUES
  ('i45-houston-galveston',3,'Dickinson / League City',        22.0, 3, 0, 65, 1, 0.0, 0.3,'Open suburban'),
  ('i45-houston-galveston',4,'Galveston Causeway',              8.0, 3, 0, 60, 0, 0.0, 0.2,'Over water; speed limit UNVERIFIED'),
  ('i45-houston-galveston',5,'Galveston Island arrival',       14.0, 2, 0, 45, 1, 0.0, 0.6,'Island streets, lower limit');
+
+-- ── ROUTE: I-35 South → Austin (SIMULATION_RULES §3) ───────────────────────────
+-- The Capital Express South project adds HOV lanes but they are UNDER CONSTRUCTION,
+-- so hov_lanes = 0 today (modeled "as-is", not "as-planned"). The notorious
+-- Buda / San Marcos congestion is the defining feature. Rolling terrain → small grades.
+INSERT INTO routes VALUES
+ ('i35-south-austin', 'I-35 South — San Antonio side to Austin', 70.0,
+  'HOV under construction (Capital Express South) → modeled as 0 today. Buda/San Marcos congestion. Rolling grades.');
+
+INSERT INTO route_segments VALUES
+ ('i35-south-austin',0,'New Braunfels approach',    16.0, 3, 0, 70, 1, 1.5, 0.4,'Rolling hill country'),
+ ('i35-south-austin',1,'San Marcos',                14.0, 3, 0, 65, 1, 2.0, 0.6,'University-town congestion'),
+ ('i35-south-austin',2,'Buda bottleneck',           12.0, 2, 0, 60, 1, 1.0, 0.8,'Notorious congestion; lane drop'),
+ ('i35-south-austin',3,'South Austin / Slaughter',  16.0, 4, 0, 65, 1, 1.5, 0.6,'Widening back out'),
+ ('i35-south-austin',4,'Downtown Austin arrival',   12.0, 4, 0, 55, 1, 0.5, 0.7,'Lower-tier limit, dense');
+
+-- ── ROUTE: Chicago — I-90/94 Kennedy Expressway (SIMULATION_RULES §3) ───────────
+-- No occupancy-based HOV. The Kennedy's reversible express lanes are DIRECTION-gated,
+-- not occupancy-gated — modeled as normal lanes (hov_lanes = 0). Dense urban, flat.
+INSERT INTO routes VALUES
+ ('chicago-kennedy', 'Chicago — I-90/94 Kennedy Expressway', 30.0,
+  'No occupancy HOV; reversible express lanes are direction-gated. Flat, dense urban.');
+
+INSERT INTO route_segments VALUES
+ ('chicago-kennedy',0,'O''Hare approach',     10.0, 5, 0, 55, 1, 0.0, 0.7,'Airport traffic'),
+ ('chicago-kennedy',1,'Kennedy mid (Jane Byrne)', 12.0, 4, 0, 45, 1, 0.0, 0.9,'Interchange chokepoint'),
+ ('chicago-kennedy',2,'Downtown Loop arrival',  8.0, 4, 0, 45, 1, 0.0, 0.8,'Dense core');
+
+-- ── ROUTE: Cincinnati — I-71/75 (SIMULATION_RULES §3, the CONTROL group) ─────────
+-- No HOV lanes anywhere. Serves as the control that isolates the value of lane access:
+-- with no HOV to contest, outcomes here are pure physics + traffic. Ohio River grades.
+INSERT INTO routes VALUES
+ ('cincinnati-i71-75', 'Cincinnati — I-71/75 Brent Spence corridor', 25.0,
+  'No HOV at all — control route. Ohio River valley grades near the bridge.');
+
+INSERT INTO route_segments VALUES
+ ('cincinnati-i71-75',0,'Northern Kentucky approach', 9.0, 4, 0, 65, 1, 2.5, 0.5,'Descent toward river'),
+ ('cincinnati-i71-75',1,'Brent Spence Bridge',        6.0, 3, 0, 55, 1, 1.0, 0.8,'Bottleneck bridge over Ohio River'),
+ ('cincinnati-i71-75',2,'Downtown Cincinnati',       10.0, 4, 0, 65, 1, 2.0, 0.5,'Climb out of valley');
