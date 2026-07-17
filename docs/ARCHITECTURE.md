@@ -239,12 +239,81 @@ This predates Vectorize's free tier — trust Cloudflare's pricing page.
 
 ## 10. Data grounding
 
-*Pending — the data availability audit is still in progress. This section will record what
-real vehicle and highway data actually exists, what's licensed for use, and what that means
-for any ML component. See `docs/CONTEXT.md` once written.*
+Audited 2026-07-16. **The project runs on mock/synthetic data by decision** — the audit
+confirms that's the only honest option, not a shortcut.
 
-The working assumption, to be confirmed or refuted: **vehicle specifications are real and
-published** (curb weight, drag coefficient, power, EPA consumption) and feed the physics engine
-directly. **Real-world race telemetry for these vehicles on these highways likely does not
-exist publicly** — which is what rules out supervised training on race outcomes, independent of
-any platform limitation.
+### There is no real race telemetry. This is settled.
+
+No public dataset exists of Cybertrucks, BMWs, or Waymos running these routes. Waymo's public
+releases are **perception sensor data from Phoenix and SF** — for training self-driving
+perception, not vehicle dynamics — and Waymo does not race. **No labeled race outcomes exist,
+so supervised training on real races is infeasible.** That conclusion is independent of any
+Cloudflare limitation; the labels simply don't exist.
+
+### Vehicle specs are real — but asymmetrically so
+
+| | BMW | Cybertruck |
+|---|---|---|
+| Drag coefficient | **Published** | Secondary sources only |
+| **Frontal area** | **Published** | **Not published — must estimate** |
+| Curb weight | Published | Secondary sources only |
+| Power / torque | Published | Secondary sources only |
+
+BMW's **German** press sheets publish `Luftwiderstand cX x A` — drag coefficient *and*
+reference area as a pair. Verified from the M5 (G90) media sheet: **Cd 0.32, frontal area
+2.55 m²**, along with 2435 kg DIN kerb weight, 535 kW, 1000 Nm, 0–100 in 3.5 s.
+([source](https://www.press.bmwgroup.com/deutschland/article/detail/T0443252DE/der-neue-bmw-m5))
+
+This matters more than it looks: **frontal area is normally the biggest guess in the road-load
+model**, usually approximated as `0.84 × track × height`. Having a cited figure replaces that
+estimate with a real number. Note it's the *German* sheets — US releases publish Cd but omit
+the area.
+
+**Caveats to carry, not bury:**
+- BMW's sheets state the figures are **preliminary** (*"vorläufige Werte"*).
+- **Cybertruck frontal area is genuinely unpublished** and must be estimated. Its Cd and weight
+  are secondary-sourced (tesla.com blocks automated fetches).
+- **Therefore the Cybertruck side of any matchup carries materially more parameter uncertainty
+  than the BMW side.** The sim must not present both vehicles as equally well characterized.
+  Surface per-vehicle confidence in the UI.
+- Unverified: whether M3/M4 sheets carry `cX x A`, and how consistently it appears across the
+  non-M range.
+
+### Highway geometry — and the elevation trap
+
+**OpenStreetMap has no elevation data.** Not sparse — absent. The OSM data model has **no Z
+coordinate**, and across ~1.36M `highway=motorway` ways planet-wide, the `ele` key does not
+appear at all. `incline` covers ~0.17%.
+
+⚠️ **Do not mistake `layer` (35.6% of motorways) or `bridge` (32.7%) for elevation.** They
+encode topological stacking order — which road crosses over which — not height.
+
+What OSM *does* give us, well-populated on motorways: `oneway` 99.7%, `ref` 97.1%, `lanes`
+87.2%, `name` 77.2%, `surface` 66.3%, `maxspeed` 65.8% (string values like `"55 mph"` — needs
+parsing).
+
+**Grades therefore need a separate elevation source (DEM), and the choice is load-bearing:**
+
+| Source | Resolution | Limits |
+|---|---|---|
+| **USGS EPQS** | 1 m | Accuracy choice; one point per call |
+| **OpenTopoData `ned10m`** | ~10 m (US) | 100 pts/call, 1 call/s, 1k/day; self-hostable |
+| Open-Elevation | unstated | 1k req/month; DEM source unverified |
+
+**The trap:** DEM sources disagree by **~14–18 m on the same point** (reproduced independently
+in Austin and Dallas), while **real Interstate grades are only 1–4%**. Pick carelessly and DEM
+error swamps the actual grade. Use a US-native DEM, and sample at spacing wide enough that DEM
+noise doesn't dominate. Pair `ned10m` for bulk profiling with EPQS to spot-check.
+
+**Bulk extraction:** use Geofabrik regional `.osm.pbf` extracts, not the public Overpass API —
+Overpass timed out on ~5 of 6 attempts under load. Overpass is fine for spot queries.
+
+### Licensing
+
+- **OSM is ODbL** — requires attribution ("© OpenStreetMap contributors") and share-alike.
+  ODbL distinguishes a *Derived Database* from a *Produced Work*. Extracted highway geometry is
+  a Derived Database and is encumbered; **whether simulation output counts as a Produced Work
+  (and is therefore unencumbered) is unverified** — confirm before relying on it.
+- **Vehicle trademarks:** see `docs/SIMULATION_RULES.md`. We hold no license from BMW, Tesla, or
+  Waymo. Referring to a vehicle by name to describe it is ordinary descriptive use; using logos
+  or implying endorsement is not. Not legal advice.
