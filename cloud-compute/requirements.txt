@@ -1,0 +1,4 @@
+# Cloud Compute (Python Worker) dependencies. Both are supported on Cloudflare
+# Python Workers and vendored at deploy by pywrangler.
+fastapi
+numpy

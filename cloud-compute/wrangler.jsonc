@@ -1,0 +1,12 @@
+{
+  // SimZoner — Cloud Compute plane. FastAPI on a Cloudflare Python Worker.
+  // Python Workers are in open beta and require the python_workers flag.
+  // Deps (fastapi, numpy) are vendored by pywrangler. See ./README.md.
+  "name": "simzoner-compute",
+  "main": "src/entry.py",
+  "compatibility_date": "2025-07-16",
+  "compatibility_flags": ["python_workers"],
+  "observability": {
+    "enabled": true
+  }
+}

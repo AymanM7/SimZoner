@@ -1,0 +1,54 @@
+{
+  // SimZoner — Worker configuration. See docs/ARCHITECTURE.md and docs/SYSTEM_DESIGN.md.
+  // Account: ayman30897@gmail.com (749101b149413a81a76515faa9aeaf64). Free tier only.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "simzoner",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-07-16",
+  "observability": {
+    "enabled": true
+  },
+
+  // Workers AI — embeddings (bge-small, 384-dim) and, later, driver-agent inference.
+  // See docs/ARCHITECTURE.md §7. Called in-process via env.AI, NOT LangChain's REST chat class.
+  "ai": {
+    "binding": "AI"
+  },
+
+  // Vectorize — vehicle-spec + highway-segment retrieval. Index created with the
+  // @cf/baai/bge-small-en-v1.5 preset (384 dims, cosine). See docs/ARCHITECTURE.md §7.
+  // Queried ONCE per race setup, never in the tick loop (SYSTEM_DESIGN §5).
+  "vectorize": [
+    {
+      "binding": "VECTORIZE",
+      "index_name": "simzoner-specs"
+    }
+  ],
+
+  // D1 — relational, exact data: vehicle catalog + provenance ledger (VEHICLE_SPECS.md),
+  // race results, leaderboards, routes/segments. Batch writes; 50 queries/invocation cap
+  // (ARCHITECTURE §3). NOT on the per-tick hot path (SYSTEM_DESIGN §7).
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "simzoner-db",
+      "database_id": "06cbea17-57f1-4534-8c04-cc5152d927a8"
+    }
+  ],
+
+  // KV — read-mostly config ONLY: spec/route lookups written once, read constantly.
+  // Free tier is 100k reads/day but just 1k writes/day, so the hot decision cache does
+  // NOT live here — it lives in DO SQLite (ARCHITECTURE §4.1). Do not repurpose this.
+  "kv_namespaces": [
+    {
+      "binding": "CONFIG",
+      "id": "d52c0666e48e46279393f0b41a795397"
+    }
+  ]
+
+  // NOT YET BOUND, by design:
+  //  - Durable Objects (SQLite-backed): race state + physics loop + hot decision cache.
+  //    Added when the physics stage lands (SYSTEM_DESIGN §4-§5).
+  //  - R2: replay blobs. Optional (ARCHITECTURE §2) — enable in dashboard only if replays
+  //    outgrow DO storage. Deferred on purpose, not blocked.
+}

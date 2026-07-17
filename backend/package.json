@@ -1,0 +1,16 @@
+{
+  "name": "simzoner",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Race simulation between Cybertruck, BMW M5, and Waymo (Jaguar I-Pace) on US highways, on Cloudflare free tier",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "cf-typegen": "wrangler types"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "wrangler": "^4.112.0"
+  }
+}

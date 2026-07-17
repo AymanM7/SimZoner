@@ -1,0 +1,16 @@
+node_modules/
+.wrangler/
+.dev.vars
+.dev.vars.*
+dist/
+*.log
+.DS_Store
+worker-configuration.d.ts
+
+# Python (cloud-compute, ml)
+__pycache__/
+*.pyc
+.venv/
+venv/
+python_modules/
+.pythonlibs/

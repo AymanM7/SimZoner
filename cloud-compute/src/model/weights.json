@@ -1,0 +1,8 @@
+{
+  "name": "race-outcome-logistic",
+  "trained": false,
+  "note": "PLACEHOLDER. All-zero weights → P=0.5 for any input. Replaced by ../ml export once the sklearn pipeline runs (docs/ML_APPROACH.md).",
+  "features": ["mass_diff_kg", "cda_diff_m2", "power_diff_kw", "hov_eligible_diff", "start_pos_diff"],
+  "weights": [0.0, 0.0, 0.0, 0.0, 0.0],
+  "bias": 0.0
+}
