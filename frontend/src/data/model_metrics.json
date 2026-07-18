@@ -1,0 +1,43 @@
+{
+  "overall": {
+    "test_accuracy": 0.8829,
+    "auc": 0.9581,
+    "majority_baseline": 0.506
+  },
+  "models": [
+    {
+      "name": "Logistic Regression",
+      "role": "shipped",
+      "test_accuracy": 0.8829
+    },
+    {
+      "name": "Gradient Boosting",
+      "role": "ceiling probe",
+      "test_accuracy": 0.8947
+    }
+  ],
+  "per_car": [
+    {
+      "id": "cybertruck-cyberbeast",
+      "name": "Cybertruck",
+      "accuracy": 0.8512,
+      "auc": 0.7915,
+      "n": 1586
+    },
+    {
+      "id": "bmw-m5-g90",
+      "name": "BMW M5",
+      "accuracy": 0.8432,
+      "auc": 0.9024,
+      "n": 1582
+    },
+    {
+      "id": "waymo-ipace",
+      "name": "Waymo",
+      "accuracy": 0.9545,
+      "auc": 0.8998,
+      "n": 1581
+    }
+  ],
+  "note": "Synthetic benchmark: measures agreement with SimZoner's physics engine (v1), not real vehicles."
+}

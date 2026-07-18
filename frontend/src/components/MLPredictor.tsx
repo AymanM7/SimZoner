@@ -4,7 +4,10 @@ import { useStore } from "../store";
 import { VEHICLES, vehicleById } from "../lib/vehicles";
 import { CORRIDORS } from "../lib/corridors";
 import type { VehicleState } from "../lib/types";
-import { ModeBadge, Sparkline, Gauge } from "./ui";
+import { ModeBadge, Sparkline } from "./ui";
+import metrics from "../data/model_metrics.json";
+
+const pct = (x: number, d = 1) => `${(x * 100).toFixed(d)}%`;
 
 function fmtEta(sec: number) {
   if (!isFinite(sec) || sec <= 0) return "--:--";
@@ -35,8 +38,6 @@ export function MLPredictor({ cars }: { cars: Record<string, VehicleState> }) {
   const leadEta = ranked[0]?.c.etaSec ?? 0;
   const maxEta = Math.max(...ranked.map((r) => r.c.etaSec), 1);
   const myRank = ranked.findIndex((r) => r.v.id === selectedVehicleId) + 1;
-
-  const worstBottleneck = [...corridor.bottlenecks].sort((a, b) => b.severityIndex - a.severityIndex)[0];
 
   const showPrediction = prediction && prediction.vehicleId === selectedVehicleId;
 
@@ -272,44 +273,82 @@ export function MLPredictor({ cars }: { cars: Record<string, VehicleState> }) {
         </div>
       </div>
 
-      {/* Gauges */}
-      <div className="grid grid-cols-2 gap-3">
-        <div className="glass-soft flex items-center justify-center p-2.5">
-          <Gauge value={worstBottleneck?.severityIndex ?? 0.4} label="Bottleneck" sub={worstBottleneck?.name.split("(")[0].trim().slice(0, 18)} />
-        </div>
-        <div className="glass-soft flex items-center justify-center p-2.5">
-          <Gauge value={0.883} label="Model conf." sub="test acc" color="var(--color-accent)" />
-        </div>
-      </div>
-
-      {/* Anomaly log */}
-      <div className="glass-soft flex-1 p-3">
+      {/* Model — one place: trained models, overall metrics, per-vehicle */}
+      <div className="glass-soft p-3">
         <div className="flex items-center justify-between">
-          <span className="eyebrow">Highway Anomaly Log</span>
-          <span className="tnum text-[10px] text-[var(--color-faint)]">{corridor.bottlenecks.length} events</span>
+          <span className="eyebrow">Model</span>
+          <span className="text-[10px] text-[var(--color-faint)]">held-out test set</span>
         </div>
-        <div className="mt-2.5 flex flex-col gap-2 text-[12px]">
-          {[...corridor.bottlenecks]
-            .sort((a, b) => b.severityIndex - a.severityIndex)
-            .slice(0, 3)
-            .map((b, i) => {
-              const sevColor = b.severityIndex > 0.8 ? "var(--color-bad)" : b.severityIndex > 0.5 ? "var(--color-warn)" : "var(--color-good)";
-              return (
-                <div key={i} className="flex items-start gap-2">
-                  <span className="mt-[3px] h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: sevColor, boxShadow: `0 0 6px ${sevColor}` }} />
-                  <div className="min-w-0 flex-1">
-                    <span className="text-[var(--color-ink)]">{b.name.split("(")[0].trim()}</span>
-                    <span className="text-[var(--color-muted)]"> - {b.locationDesc.split(",")[0]}</span>
-                  </div>
+
+        {/* Overall headline metrics */}
+        <div className="mt-2.5 grid grid-cols-2 gap-2">
+          <div className="rounded-lg border border-[var(--color-line-soft)] bg-white/[0.015] px-3 py-2.5">
+            <div className="text-[9px] uppercase tracking-wider text-[var(--color-faint)]">Accuracy</div>
+            <div className="tnum mt-1 text-2xl font-semibold leading-none text-[var(--color-ink)]">
+              {(metrics.overall.test_accuracy * 100).toFixed(1)}
+              <span className="text-sm font-medium opacity-60">%</span>
+            </div>
+            <div className="tnum mt-1.5 text-[10px] text-[var(--color-faint)]">
+              vs {pct(metrics.overall.majority_baseline)} baseline
+            </div>
+          </div>
+          <div className="rounded-lg border border-[var(--color-line-soft)] bg-white/[0.015] px-3 py-2.5">
+            <div className="text-[9px] uppercase tracking-wider text-[var(--color-faint)]">AUC</div>
+            <div className="tnum mt-1 text-2xl font-semibold leading-none text-[var(--color-accent)]">
+              {metrics.overall.auc.toFixed(3)}
+            </div>
+            <div className="mt-1.5 text-[10px] text-[var(--color-faint)]">ranking quality</div>
+          </div>
+        </div>
+
+        {/* Trained models */}
+        <div className="mt-3 border-t border-[var(--color-line-soft)] pt-3">
+          <div className="mb-2 text-[9px] font-medium uppercase tracking-wider text-[var(--color-faint)]">Trained</div>
+          <div className="flex flex-col gap-2">
+            {metrics.models.map((m) => (
+              <div key={m.name} className="flex items-center justify-between gap-2">
+                <div className="flex min-w-0 items-center gap-1.5">
+                  <span className="truncate text-[12px] font-medium text-[var(--color-ink)]">{m.name}</span>
                   <span
-                    className="tnum shrink-0 rounded px-1 py-px text-[9px] font-semibold"
-                    style={{ color: sevColor, background: `color-mix(in srgb, ${sevColor} 14%, transparent)` }}
+                    className="shrink-0 rounded px-1 py-px text-[9px] font-semibold uppercase tracking-wide"
+                    style={
+                      m.role === "shipped"
+                        ? { color: "var(--color-good)", background: "color-mix(in srgb, var(--color-good) 14%, transparent)" }
+                        : { color: "var(--color-muted)", background: "color-mix(in srgb, var(--color-faint) 16%, transparent)" }
+                    }
                   >
-                    {b.severityIndex.toFixed(2)}
+                    {m.role}
                   </span>
+                </div>
+                <span className="tnum shrink-0 text-[12px] font-semibold">{pct(m.test_accuracy)}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Per-vehicle — AUC is the metric to trust */}
+        <div className="mt-3 border-t border-[var(--color-line-soft)] pt-3">
+          <div className="mb-2 flex items-center justify-between">
+            <span className="text-[9px] font-medium uppercase tracking-wider text-[var(--color-faint)]">Per-vehicle</span>
+            <span className="text-[9px] uppercase tracking-wider text-[var(--color-faint)]">acc / auc</span>
+          </div>
+          <div className="flex flex-col gap-1">
+            {VEHICLES.map((v) => {
+              const pc = metrics.per_car.find((p) => p.id === v.id);
+              if (!pc) return null;
+              return (
+                <div key={v.id} className="flex items-center gap-2.5 py-0.5">
+                  <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: v.color }} />
+                  <span className="min-w-0 flex-1 truncate text-xs font-semibold text-[var(--color-ink)]">{pc.name}</span>
+                  <span className="tnum w-12 text-right text-[12px] text-[var(--color-muted)]">{pct(pc.accuracy)}</span>
+                  <span className="tnum w-10 text-right text-[12px] font-semibold text-[var(--color-accent)]">{pc.auc.toFixed(2)}</span>
                 </div>
               );
             })}
+          </div>
+          <p className="mt-2.5 text-[10px] leading-relaxed text-[var(--color-faint)]">
+            AUC is the metric to trust here: accuracy flatters lopsided matchups where it sits near the {pct(metrics.overall.majority_baseline, 0)} baseline. {metrics.note}
+          </p>
         </div>
       </div>
     </div>

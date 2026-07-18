@@ -31,7 +31,7 @@
       },
       {
         "name": "Webster to Texas City / La Marque (through League City, Dickinson, Santa Fe)",
-        "speedLimitMph": 70,
+        "speedLimitMph": 75,
         "speedLimitVerified": false,
         "lanes": 6,
         "hovLanes": 0,
@@ -221,7 +221,7 @@
       },
       {
         "name": "Schertz / Cibolo to New Braunfels",
-        "speedLimitMph": 70,
+        "speedLimitMph": 75,
         "speedLimitVerified": false,
         "lanes": 6,
         "hovLanes": 0,
@@ -229,7 +229,7 @@
       },
       {
         "name": "New Braunfels to San Marcos",
-        "speedLimitMph": 70,
+        "speedLimitMph": 75,
         "speedLimitVerified": false,
         "lanes": 6,
         "hovLanes": 0,

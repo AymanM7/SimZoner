@@ -9,6 +9,7 @@ interface State {
   corridorId: CorridorId;
   selectedVehicleId: string;
   running: boolean;
+  raceNonce: number; // bump to restart the sim (cars back to the start line)
   incidentAt: number | null; // fractional position 0..1 of an injected incident
   mapTheme: "light" | "dark"; // OpenStreetMap light vs dark basemap
   prediction: PredictResponse | null;
@@ -26,7 +27,8 @@ interface State {
 export const useStore = create<State>((set, get) => ({
   corridorId: "i45-houston-galveston",
   selectedVehicleId: "waymo-ipace",
-  running: true,
+  running: false, // cars wait at the start line until Predict is clicked
+  raceNonce: 0,
   incidentAt: null,
   mapTheme: "light",
   prediction: null,
@@ -42,7 +44,8 @@ export const useStore = create<State>((set, get) => ({
   toggleMapTheme: () => set((s) => ({ mapTheme: s.mapTheme === "light" ? "dark" : "light" })),
 
   runPrediction: async (vehicleId, cars) => {
-    set({ predictLoading: true });
+    // Clicking Predict launches the race: reset cars to the start line and run.
+    set((s) => ({ predictLoading: true, running: true, raceNonce: s.raceNonce + 1 }));
     const corridorId = get().corridorId;
     const leaderboard = VEHICLES.map((v) => ({ vehicleId: v.id, etaSec: cars[v.id]?.etaSec ?? Infinity }))
       .sort((a, b) => a.etaSec - b.etaSec)

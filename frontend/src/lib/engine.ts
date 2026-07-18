@@ -9,6 +9,19 @@ import type { Corridor, VehicleState } from "./types";
 const MPH = 0.44704;
 export const TIME_SCALE = 40; // 1 real sec ~= 40 sim sec
 
+// Speed model tuning. Effective speed is capped at (limit + OVER_CAP_MPH) and cut
+// by modeled traffic. Traffic is a light free-flow baseline plus real bottleneck
+// severity (and any incident). CONGESTION_DRAG controls how hard traffic bites, so
+// open rural highway approaches the cap while urban cores / bridges stay slower.
+// Values chosen so a 75 mph rural segment cruises ~72-78 and a 60/50 mph urban or
+// bridge segment lands lower (see hand-computed figures in the PR notes).
+const OVER_CAP_MPH = 10; // drivers run up to 10 over the posted limit
+const TRAFFIC_BASE = 0.05; // free-flow baseline load on open road
+const BOTTLENECK_LOAD = 0.3; // how much bottleneck severity adds to traffic
+const INCIDENT_LOAD = 0.6; // extra load when near an active incident
+const CONGESTION_DRAG = 0.33; // fraction of speed removed at full congestion
+const HOV_RELIEF = 0.4; // congestion multiplier for HOV-eligible vehicles
+
 // Which section a fraction-of-route falls in, and its local traffic level.
 function sectionAt(corridor: Corridor, t: number) {
   const n = corridor.sections.length;
@@ -42,12 +55,15 @@ export function advance(
     const bl = bottleneckLoad(corridor, c.progress);
 
     const nearIncident = incidentAt !== null && Math.abs(c.progress - incidentAt) < 0.08;
-    const traffic = Math.min(1, 0.25 + bl * 0.6 + (nearIncident ? 0.6 : 0));
+    const traffic = Math.min(
+      1,
+      TRAFFIC_BASE + bl * BOTTLENECK_LOAD + (nearIncident ? INCIDENT_LOAD : 0)
+    );
 
     const hasHov = sec.hovLanes > 0 && (v.risk >= 0.75 || v.defaultMode === "FSD");
-    const congestion = hasHov ? traffic * 0.4 : traffic;
-    const capMph = sec.speedLimitMph + 10;
-    const targetMph = capMph * (1 - 0.5 * congestion) * (0.9 + 0.1 * v.risk);
+    const congestion = hasHov ? traffic * HOV_RELIEF : traffic;
+    const capMph = sec.speedLimitMph + OVER_CAP_MPH;
+    const targetMph = capMph * (1 - CONGESTION_DRAG * congestion) * (0.9 + 0.1 * v.risk);
 
     c.speedMph += (targetMph - c.speedMph) * Math.min(1, dt * 0.4);
     const dM = c.speedMph * MPH * dt;

@@ -80,7 +80,7 @@ export default function Page() {
               )}
             </div>
           </div>
-          <div className="relative flex-1">
+          <div className="relative h-[540px]">
             <HighwayMap carsRef={carsRef} />
           </div>
         </section>

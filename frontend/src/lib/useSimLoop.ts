@@ -9,16 +9,17 @@ import type { VehicleState } from "./types";
 // into React for the panels. City switching resets the stream instantly.
 export function useSimLoop() {
   const corridorId = useStore((s) => s.corridorId);
+  const raceNonce = useStore((s) => s.raceNonce);
   const carsRef = useRef<Record<string, VehicleState>>(freshCars(CORRIDORS[corridorId]));
   const [snapshot, setSnapshot] = useState<Record<string, VehicleState>>(carsRef.current);
   const lastRef = useRef<number>(0);
   const pushRef = useRef<number>(0);
 
-  // reset on city change
+  // reset cars to the start line on city change OR when a race is (re)started via Predict
   useEffect(() => {
     carsRef.current = freshCars(CORRIDORS[corridorId]);
     setSnapshot(structuredClone(carsRef.current));
-  }, [corridorId]);
+  }, [corridorId, raceNonce]);
 
   useEffect(() => {
     let raf = 0;
