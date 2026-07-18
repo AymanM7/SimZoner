@@ -1,0 +1,15 @@
+{
+  "name": "simzoner",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Race simulation across US highways on Cloudflare's free tier. `npm run dev` starts all three services at once.",
+  "scripts": {
+    "dev": "concurrently -n frontend,backend,compute -c cyan,green,magenta \"cd frontend && npm run dev -- -p 5199\" \"cd backend && npx wrangler dev --remote --port 8787\" \"cd cloud-compute && npx wrangler dev --port 8788\"",
+    "dev:frontend": "cd frontend && npm run dev -- -p 5199",
+    "dev:backend": "cd backend && npx wrangler dev --remote --port 8787",
+    "dev:compute": "cd cloud-compute && npx wrangler dev --port 8788"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
