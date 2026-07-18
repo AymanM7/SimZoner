@@ -1,0 +1,29 @@
+# .dev.vars.example — TEMPLATE for local Worker secrets/config. Placeholders only.
+#
+# HOW TO USE
+#   1. Copy this file to `.dev.vars` (that file is gitignored — NEVER commit it):
+#        cp .dev.vars.example .dev.vars
+#   2. Fill in real values in `.dev.vars` for local `wrangler dev`.
+#   3. For PRODUCTION, do NOT put secrets in wrangler.jsonc (it is committed).
+#      Set each one with:
+#        npx wrangler secret put NAME
+#      Wrangler stores it encrypted; it becomes available on `env.NAME` at runtime.
+#
+# SECRET vs CONFIG
+#   - Secrets (tokens, keys)      -> `.dev.vars` locally, `wrangler secret put` in prod.
+#   - Non-secret config (origins) -> `[vars]` / "vars" in wrangler.jsonc is fine.
+#
+# CURRENT STATE
+#   SimZoner has NO secrets today. It uses Cloudflare BINDINGS (AI, VECTORIZE, DB,
+#   CONFIG), not API keys, so this file is a template only — nothing below is
+#   required to run the Worker. The entries are illustrative EXAMPLES so the pattern
+#   is documented for when a real secret is eventually needed.
+
+# --- EXAMPLE ONLY (hypothetical; not used by the app today) ---------------------
+# If we ever route Workers AI through an authenticated AI Gateway, its token would
+# be a real secret and would live here / in `wrangler secret put`:
+# AI_GATEWAY_TOKEN=replace-with-real-token
+
+# --- EXAMPLE ONLY (non-secret config; could also live in wrangler.jsonc "vars") -
+# Production frontend origin the CORS allowlist should permit (see src/security.ts).
+# PROD_ORIGIN=https://simzoner.pages.dev

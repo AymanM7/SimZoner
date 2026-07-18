@@ -1,0 +1,282 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -95.363,
+            29.76
+          ],
+          [
+            -95.345,
+            29.735
+          ],
+          [
+            -95.322,
+            29.71
+          ],
+          [
+            -95.29,
+            29.682
+          ],
+          [
+            -95.268,
+            29.66
+          ],
+          [
+            -95.25,
+            29.638
+          ],
+          [
+            -95.228,
+            29.615
+          ],
+          [
+            -95.2,
+            29.592
+          ],
+          [
+            -95.172,
+            29.572
+          ],
+          [
+            -95.148,
+            29.555
+          ],
+          [
+            -95.128,
+            29.543
+          ],
+          [
+            -95.118,
+            29.537
+          ],
+          [
+            -95.095,
+            29.512
+          ],
+          [
+            -95.07,
+            29.485
+          ],
+          [
+            -95.052,
+            29.458
+          ],
+          [
+            -95.02,
+            29.425
+          ],
+          [
+            -94.985,
+            29.398
+          ],
+          [
+            -94.945,
+            29.372
+          ],
+          [
+            -94.91,
+            29.34
+          ],
+          [
+            -94.892,
+            29.315
+          ],
+          [
+            -94.886,
+            29.297
+          ],
+          [
+            -94.86,
+            29.29
+          ],
+          [
+            -94.825,
+            29.293
+          ],
+          [
+            -94.797,
+            29.301
+          ]
+        ]
+      },
+      "properties": {
+        "id": "i45-houston-galveston",
+        "displayName": "I-45 Gulf Freeway (Houston to Galveston)",
+        "lengthKm": 78.78,
+        "note": "Real I-45 Gulf Freeway alignment from downtown Houston to Galveston Island. Endpoint and named waypoint coordinates (downtown, Webster HOV terminus, Galveston Causeway, Galveston) are researched real locations; intermediate vertices are approximated to follow the actual highway curve for correct placement on map tiles."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -95.363,
+          29.76
+        ]
+      },
+      "properties": {
+        "corridorId": "i45-houston-galveston",
+        "name": "Downtown Houston start",
+        "kind": "waypoint"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -95.118,
+          29.537
+        ]
+      },
+      "properties": {
+        "corridorId": "i45-houston-galveston",
+        "name": "Webster - HOV ends",
+        "kind": "waypoint"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -94.892,
+          29.315
+        ]
+      },
+      "properties": {
+        "corridorId": "i45-houston-galveston",
+        "name": "Galveston Causeway",
+        "kind": "waypoint"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -94.797,
+          29.301
+        ]
+      },
+      "properties": {
+        "corridorId": "i45-houston-galveston",
+        "name": "Galveston arrival",
+        "kind": "waypoint"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -84.52,
+            39.05
+          ],
+          [
+            -84.523,
+            39.065
+          ],
+          [
+            -84.522,
+            39.078
+          ],
+          [
+            -84.522,
+            39.085
+          ],
+          [
+            -84.522,
+            39.091
+          ],
+          [
+            -84.52,
+            39.098
+          ],
+          [
+            -84.515,
+            39.103
+          ],
+          [
+            -84.508,
+            39.112
+          ],
+          [
+            -84.495,
+            39.125
+          ],
+          [
+            -84.48,
+            39.14
+          ],
+          [
+            -84.468,
+            39.152
+          ],
+          [
+            -84.46,
+            39.16
+          ]
+        ]
+      },
+      "properties": {
+        "id": "cincinnati-i71-75",
+        "displayName": "I-71/I-75 through Cincinnati (N. Kentucky to north)",
+        "lengthKm": 14.01,
+        "note": "Real I-71/I-75 combined corridor through Cincinnati, from Northern Kentucky north across the Brent Spence Bridge (approx 39.091, -84.523, verified) into downtown Cincinnati and continuing north. Named waypoints are researched real locations; intermediate vertices are approximated to follow the actual highway curve for correct placement on map tiles."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.52,
+          39.05
+        ]
+      },
+      "properties": {
+        "corridorId": "cincinnati-i71-75",
+        "name": "N. Kentucky approach",
+        "kind": "waypoint"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.522,
+          39.091
+        ]
+      },
+      "properties": {
+        "corridorId": "cincinnati-i71-75",
+        "name": "Brent Spence Bridge",
+        "kind": "waypoint"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.515,
+          39.103
+        ]
+      },
+      "properties": {
+        "corridorId": "cincinnati-i71-75",
+        "name": "Downtown Cincinnati",
+        "kind": "waypoint"
+      }
+    }
+  ]
+}

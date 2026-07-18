@@ -9,6 +9,17 @@
     "enabled": true
   },
 
+  // SECRETS: never put secrets in this file — it is committed to git. Set them with
+  //   `npx wrangler secret put NAME`  (prod, stored encrypted)
+  // and, for local `wrangler dev`, in a gitignored `.dev.vars` file (see
+  // `.dev.vars.example`). The app has NO secrets today (it uses bindings, not keys).
+  //
+  // NON-SECRET config only may go in "vars" below. Example (commented; enable when a
+  // production frontend exists so src/security.ts adds it to the CORS allowlist):
+  // "vars": {
+  //   "PROD_ORIGIN": "https://simzoner.pages.dev"
+  // },
+
   // Workers AI — embeddings (bge-small, 384-dim) and, later, driver-agent inference.
   // See docs/ARCHITECTURE.md §7. Called in-process via env.AI, NOT LangChain's REST chat class.
   "ai": {

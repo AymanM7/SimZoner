@@ -1,0 +1,119 @@
+{
+  "i35-south-austin": {
+    "displayName": "I-35 South (San Antonio to Austin, TX)",
+    "lengthKm": 121.7,
+    "lengthMiles": 75.6,
+    "lengthNote": "Haversine length of the modeled 25-vertex i35.geojson polyline (~121.7 km / ~75.6 mi). The real signed I-35 driving distance from downtown San Antonio to downtown Austin is roughly 79 mi / 127 km; the modeled coarse polyline runs slightly short of that. Treat as modeled/estimated, not a surveyed value.",
+    "sections": [
+      {
+        "name": "Downtown San Antonio (I-35 / I-10 / I-37 downtown interchanges)",
+        "speedLimitMph": 60,
+        "speedLimitVerified": false,
+        "lanes": 8,
+        "hovLanes": 0,
+        "notes": "Urban core through downtown San Antonio with tightly spaced ramps and the I-10/I-35 and I-35/I-37 interchanges. 60 mph is a typical Texas urban-freeway posting but was NOT confirmed against an official TxDOT sign inventory for this exact segment. Lane count approximate. No HOV/managed lanes exist here."
+      },
+      {
+        "name": "Northeast San Antonio to Selma / Schertz (through Live Oak, Universal City)",
+        "speedLimitMph": 65,
+        "speedLimitVerified": false,
+        "lanes": 8,
+        "hovLanes": 0,
+        "notes": "Suburban San Antonio, 8-10 general-purpose lanes in places. 65 mph estimated; not verified. No HOV/managed lanes. Retail/interchange density around Selma and Schertz."
+      },
+      {
+        "name": "Schertz / Cibolo to New Braunfels",
+        "speedLimitMph": 70,
+        "speedLimitVerified": false,
+        "lanes": 6,
+        "hovLanes": 0,
+        "notes": "Transitional suburban-to-open freeway. 70 mph estimated; some open Texas stretches are posted up to 75 mph but the exact per-subsegment posting was not verified. No managed lanes."
+      },
+      {
+        "name": "New Braunfels to San Marcos",
+        "speedLimitMph": 70,
+        "speedLimitVerified": false,
+        "lanes": 6,
+        "hovLanes": 0,
+        "notes": "Open freeway between the two river towns. 70 mph estimated; not verified. Recurring weekend/tuber and outlet-mall traffic near the San Marcos Premium Outlets. No managed lanes."
+      },
+      {
+        "name": "San Marcos through Kyle and Buda (Hays County commuter belt)",
+        "speedLimitMph": 65,
+        "speedLimitVerified": false,
+        "lanes": 6,
+        "hovLanes": 0,
+        "notes": "One of the fastest-growing commuter stretches in Texas; frequent recurring congestion around Kyle and Buda. 65 mph estimated; not verified. No managed lanes today. This segment falls within/near the limits of TxDOT's future I-35 Capital Express South managed-lane project (see hovRule)."
+      },
+      {
+        "name": "Buda to South Austin (Slaughter Ln / Ben White Blvd / SH 71)",
+        "speedLimitMph": 60,
+        "speedLimitVerified": false,
+        "lanes": 8,
+        "hovLanes": 0,
+        "notes": "Freeway densifies approaching Austin. 60 mph estimated; not verified. ACTIVE construction zone: TxDOT I-35 Capital Express South is building elevated managed (HOV) lanes here between SH 71/Ben White and SH 45 SE (targeted completion ~late 2028). No managed lanes are OPEN to traffic today (hovLanes = 0)."
+      },
+      {
+        "name": "Central / Downtown Austin (SH 71/Ben White to US 290 E, Lady Bird Lake)",
+        "speedLimitMph": 60,
+        "speedLimitVerified": false,
+        "lanes": 8,
+        "hovLanes": 0,
+        "notes": "Downtown Austin I-35 with upper/lower decks near the Lady Bird Lake bridge and closely spaced frontage-road ramps; one of Texas's most notorious congestion points. 60 mph estimated; not verified. ACTIVE construction: TxDOT I-35 Capital Express Central (~$5.6B, work began early 2025, ~2033 completion) is rebuilding this ~8-mile segment and adding two non-tolled HOV managed lanes per direction. None are OPEN yet (hovLanes = 0)."
+      }
+    ],
+    "hovRule": {
+      "exists": false,
+      "occupancyMin": null,
+      "startPoint": null,
+      "endPoint": null,
+      "hours": null,
+      "source": "https://www.txdot.gov/mymobility35/projects/capex-central.html",
+      "notes": "As of mid-2026 I-35 itself carries NO open HOV/managed lanes on the San Antonio-Austin corridor, so hovLanes is modeled as 0 on every section. This is VERIFIED as an under-construction, not-yet-open situation: TxDOT's I-35 Capital Express Central project (US 290 E to SH 71/Ben White, work started early 2025, ~2033 finish) and Capital Express South project (SH 71/Ben White to SH 45 SE, ~late 2028 finish) will EACH add two non-tolled high-occupancy-vehicle managed lanes per direction. When open these will be the corridor's first I-35 HOV lanes. Important disambiguation: the well-known Austin MoPac (Loop 1) Express Lanes are a DIFFERENT road (a tolled variable-price managed lane on Loop 1, run by the Central Texas Regional Mobility Authority) and are NOT on I-35. Do not attribute MoPac's managed lanes to I-35."
+    },
+    "bottlenecks": [
+      {
+        "name": "Downtown Austin I-35 (upper/lower decks, Lady Bird Lake to US 290 E)",
+        "locationDesc": "Central Austin I-35 through downtown, roughly SH 71/Ben White north to US 290 East; the double-decked segment over/near Lady Bird Lake.",
+        "severityIndex": 0.95,
+        "reason": "Perennially ranked among Texas's (and the nation's) worst freeway bottlenecks: 1950s-era double-deck design, frontage-road weaving, no shoulders in places, and metro-wide commuter plus I-35 through-freight volumes converging on downtown. Now compounded by the multi-year Capital Express Central reconstruction. Assigned near-maximum severity.",
+        "source": "https://www.txdot.gov/mymobility35/projects/capex-central.html"
+      },
+      {
+        "name": "Buda / Kyle (Hays County) commuter squeeze",
+        "locationDesc": "I-35 through Buda and Kyle, roughly the FM 1626 / Kyle Pkwy / Buda area south of Austin (near [-97.841, 30.083]).",
+        "severityIndex": 0.75,
+        "reason": "Explosive suburban growth in Hays County funnels a large commuter volume onto a 6-lane freeway section, producing heavy recurring AM/PM peak congestion and queue spillback. High severity reflects growth outpacing capacity ahead of the Capital Express South widening.",
+        "source": "https://www.txdot.gov/mymobility35/projects/capex-south.html"
+      },
+      {
+        "name": "San Marcos (outlet malls / river-recreation traffic)",
+        "locationDesc": "I-35 through San Marcos near the Premium/Tanger outlet centers and the university/river area (near [-97.941, 29.883]).",
+        "severityIndex": 0.7,
+        "reason": "Interchange-dense segment with major outlet-mall trip generation, Texas State University traffic, and heavy summer tubing/river-recreation peaks stacking onto through traffic. Recurring weekend and holiday congestion. Moderate-high severity.",
+        "source": "https://en.wikipedia.org/wiki/Interstate_35_in_Texas"
+      },
+      {
+        "name": "New Braunfels (Comal / Schlitterbahn corridor)",
+        "locationDesc": "I-35 through New Braunfels (near [-98.124, 29.703]).",
+        "severityIndex": 0.6,
+        "reason": "Regional tourism draw (Comal/Guadalupe rivers, Schlitterbahn) plus growing bedroom-community commuting between San Antonio and Austin creates recurring weekend and peak congestion where the freeway narrows. Moderate severity.",
+        "source": "https://en.wikipedia.org/wiki/Interstate_35_in_Texas"
+      }
+    ],
+    "tolls": "The I-35 mainlanes between San Antonio and Austin are NOT tolled and are free to drive. The primary tolled ALTERNATIVE is SH 130 (State Highway 130), a ~91-mile toll road running east and south of Austin that parallels I-35 as a bypass; its southern section (SH 130 South, roughly SH 45 SE in Mustang Ridge to I-10 in Seguin, ~41 mi) is privately operated with all-electronic cashless tolling and a posted speed limit up to 85 mph. Operators advertise substantial time savings versus I-35 in this corridor. Exact SH 130 toll PRICES vary by class/segment and payment method (TxTag/toll-tag vs pay-by-mail, with tag customers paying materially less) and were NOT verified to a specific dollar amount here, so no rate is quoted. The future I-35 Capital Express managed (HOV) lanes are planned as NON-tolled. Do not confuse SH 130 (tolled bypass) with I-35 (free mainlanes).",
+    "tollsSource": "https://en.wikipedia.org/wiki/Texas_State_Highway_130",
+    "waymoReality": "Modeled actor on this corridor, not a real intercity-freeway deployment. VERIFIED: Waymo does operate a driverless robotaxi service in Austin, launched to the public via the Waymo-Uber partnership in early 2025 (Uber-app matching began March 2025; roughly 100 vehicles cited by mid-2025). That service is SURFACE-STREET ridehailing within an Austin operating zone, NOT operation on the intercity I-35 freeway between San Antonio and Austin. Waymo also runs in San Antonio as a separate metro service. There is no verified Waymo driverless service running the I-35 mainlanes San Antonio-to-Austin as an intercity route; corridor-level 'Waymo' behavior in this model should be treated as simulated. (Consistent with the other corridors' note that Waymo paused all freeway rides in May 2026 pending a construction-zone software update.)",
+    "waymoRealitySource": "https://techcrunch.com/2025/03/04/uber-users-in-austin-are-getting-matched-with-waymo-robotaxis/",
+    "disclaimer": "VERIFIED vs MODELED. Verified from cited sources: (1) I-35 currently has NO open HOV/managed lanes on the San Antonio-Austin corridor; TxDOT's Capital Express Central (US 290 E to SH 71/Ben White, started early 2025, ~2033) and Capital Express South (SH 71/Ben White to SH 45 SE, ~2028) projects will each ADD two non-tolled HOV managed lanes per direction, none open yet -> hovLanes modeled as 0; (2) the Austin MoPac/Loop 1 Express Lanes are a separate tolled road, not I-35; (3) the I-35 mainlanes are non-tolled and SH 130 is the tolled parallel bypass (up to 85 mph, all-electronic tolling); (4) downtown Austin I-35 is a top-tier notorious bottleneck and the San Marcos/Kyle/Buda stretch is heavily congested and growing; (5) Waymo runs a real driverless surface-street robotaxi service in Austin via the Uber partnership (public since 2025) but not as an I-35 intercity-freeway operation. MODELED / ESTIMATED (not surveyed): the corridor length (haversine over a coarse hand-placed polyline; ~75.6 mi modeled vs ~79 mi real driving distance); ALL posted speed limits (every section has speedLimitVerified=false - values are typical Texas urban/rural interstate postings, NOT confirmed against an official TxDOT sign inventory); all per-section lane counts (approximate); and every bottleneck severityIndex (0..1 values assigned as relative congestion judgments, not measured). Named geojson waypoint coordinates are real; intermediate polyline vertices are approximated to follow the alignment. Do not treat estimated values as authoritative for engineering or legal purposes.",
+    "sources": [
+      { "label": "TxDOT My35 / Mobility35 - I-35 Capital Express Central project (managed HOV lanes, downtown Austin rebuild)", "url": "https://www.txdot.gov/mymobility35/projects/capex-central.html" },
+      { "label": "TxDOT My35 / Mobility35 - I-35 Capital Express South project (managed HOV lanes, SH 71 to SH 45 SE)", "url": "https://www.txdot.gov/mymobility35/projects/capex-south.html" },
+      { "label": "Wikipedia - Texas State Highway 130 (tolled I-35 bypass, 85 mph, cashless tolling)", "url": "https://en.wikipedia.org/wiki/Texas_State_Highway_130" },
+      { "label": "SH 130 South - official toll road site (Austin-San Antonio alternate route)", "url": "https://mysh130.com/" },
+      { "label": "Wikipedia - Interstate 35 in Texas (alignment, cities, congestion)", "url": "https://en.wikipedia.org/wiki/Interstate_35_in_Texas" },
+      { "label": "TechCrunch - Uber users in Austin matched with Waymo robotaxis (Mar 2025 public launch)", "url": "https://techcrunch.com/2025/03/04/uber-users-in-austin-are-getting-matched-with-waymo-robotaxis/" },
+      { "label": "Equipment World - TxDOT I-35 Central project to speed up in 2026", "url": "https://www.equipmentworld.com/roadbuilding/article/15774495/txdot-i35-central-project-to-speed-up-in-2026" }
+    ]
+  }
+}

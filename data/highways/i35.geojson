@@ -1,0 +1,70 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "i35-south-austin",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-98.4900, 29.4220],
+          [-98.4720, 29.4470],
+          [-98.4520, 29.4720],
+          [-98.4280, 29.5000],
+          [-98.4000, 29.5250],
+          [-98.3550, 29.5470],
+          [-98.3080, 29.5720],
+          [-98.2650, 29.6050],
+          [-98.2200, 29.6400],
+          [-98.1750, 29.6720],
+          [-98.1240, 29.7030],
+          [-98.0800, 29.7380],
+          [-98.0400, 29.7780],
+          [-98.0050, 29.8180],
+          [-97.9700, 29.8520],
+          [-97.9410, 29.8830],
+          [-97.9150, 29.9250],
+          [-97.8770, 29.9890],
+          [-97.8580, 30.0350],
+          [-97.8410, 30.0830],
+          [-97.8180, 30.1250],
+          [-97.7950, 30.1700],
+          [-97.7700, 30.2150],
+          [-97.7500, 30.2450],
+          [-97.7350, 30.2670]
+        ]
+      },
+      "properties": {
+        "id": "i35-south-austin",
+        "displayName": "I-35 South (San Antonio to Austin)",
+        "lengthKm": 121.7,
+        "note": "Named waypoints (San Antonio start, New Braunfels, San Marcos, Buda, Austin arrival) use real, verified city/interchange coordinates on or immediately adjacent to the I-35 mainlanes. Intermediate points are MODELED: hand-placed to approximate the real northeast-trending I-35 alignment (a curve, not a straight line) rather than surveyed centerline geometry. lengthKm is haversine-summed over this 25-vertex polyline (~121.7 km / ~75.6 mi); the actual signed I-35 driving distance San Antonio-to-Austin is a bit longer (~79 mi), so treat this length as an approximation of a coarse polyline, not a road-accurate distance. Coordinates are [lon, lat] per GeoJSON / RFC 7946."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-98.4900, 29.4220] },
+      "properties": { "corridorId": "i35-south-austin", "name": "San Antonio start", "kind": "waypoint" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-98.1240, 29.7030] },
+      "properties": { "corridorId": "i35-south-austin", "name": "New Braunfels", "kind": "waypoint" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-97.9410, 29.8830] },
+      "properties": { "corridorId": "i35-south-austin", "name": "San Marcos", "kind": "waypoint" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-97.8410, 30.0830] },
+      "properties": { "corridorId": "i35-south-austin", "name": "Buda bottleneck", "kind": "waypoint" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-97.7350, 30.2670] },
+      "properties": { "corridorId": "i35-south-austin", "name": "Austin arrival", "kind": "waypoint" }
+    }
+  ]
+}
