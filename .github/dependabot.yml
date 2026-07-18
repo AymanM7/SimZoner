@@ -1,0 +1,42 @@
+version: 2
+
+# Dependabot keeps dependencies patched with weekly PRs.
+# Covered ecosystems:
+#   - npm for frontend/ and backend/
+#   - github-actions (so the SHA-pinned actions in .github/workflows get bumped;
+#     Dependabot updates the pin AND the trailing version comment together)
+#
+# The Python subprojects (cloud-compute/, ml/) are intentionally omitted here.
+# Add "pip" ecosystem entries once they carry a requirements.txt / pyproject
+# lockfile that Dependabot can resolve.
+
+updates:
+  # Frontend (Next.js) npm dependencies.
+  - package-ecosystem: "npm"
+    directory: "/frontend"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "frontend"
+
+  # Backend (Cloudflare Worker) npm dependencies.
+  - package-ecosystem: "npm"
+    directory: "/backend"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "backend"
+
+  # GitHub Actions used in .github/workflows (keeps SHA pins current).
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "ci"

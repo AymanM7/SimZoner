@@ -1,0 +1,123 @@
+name: Security
+
+# Weekly scheduled + on-push security scanning:
+#   - npm dependency audit (frontend + backend)
+#   - gitleaks secret scanning
+#   - CodeQL static analysis for JavaScript/TypeScript
+#
+# Hardening: every third-party action is pinned to a full commit SHA to prevent
+# tag-hijack supply-chain attacks. The workflow defaults to read-only
+# GITHUB_TOKEN permissions; only the CodeQL job elevates (security-events:write)
+# and only within that job.
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    # Weekly, Mondays 06:17 UTC. Odd minute avoids the top-of-hour scheduler
+    # congestion on GitHub's cron.
+    - cron: '17 6 * * 1'
+  workflow_dispatch: {}
+
+# Least privilege default for the whole workflow.
+permissions:
+  contents: read
+
+concurrency:
+  group: security-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # Dependency audit. Reports known-vulnerable npm packages.
+  #
+  # Rationale for NOT failing the build on low/moderate findings:
+  #   --audit-level=high only surfaces high/critical as the audit exit code, and
+  #   we additionally set continue-on-error so even a high/critical finding is
+  #   reported (visible in the job log / summary) without hard-blocking every PR
+  #   on transitive advisories we cannot immediately fix. Dependabot (see
+  #   .github/dependabot.yml) is the mechanism that drives the actual upgrades.
+  #   Tighten this to a hard gate once the dependency tree is clean.
+  # ---------------------------------------------------------------------------
+  dependency-audit:
+    name: npm audit (${{ matrix.package }})
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        package: [frontend, backend]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: ${{ matrix.package }}/package-lock.json
+
+      - name: Audit dependencies (report-only)
+        working-directory: ${{ matrix.package }}
+        # Do not hard-fail the build; surface findings for triage instead.
+        continue-on-error: true
+        run: npm audit --audit-level=high
+
+  # ---------------------------------------------------------------------------
+  # Secret scanning with gitleaks (official action, SHA-pinned).
+  # Catches secrets committed to the repo / git history.
+  # NOTE: gitleaks-action is free for personal/public repos. Scanning under a
+  # GitHub *organization* requires a GITLEAKS_LICENSE. If this repo moves into an
+  # org, add that secret and reference it here; do not add it for a personal acct.
+  # ---------------------------------------------------------------------------
+  gitleaks:
+    name: Secret scan (gitleaks)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          # Full history so gitleaks can scan past commits, not just the tip.
+          fetch-depth: 0
+
+      - name: Run gitleaks
+        # gitleaks/gitleaks-action pinned to a full commit SHA.
+        uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # GITLEAKS_LICENSE only required for GitHub organization accounts.
+          # GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
+
+  # ---------------------------------------------------------------------------
+  # CodeQL static analysis for JavaScript/TypeScript.
+  # This is the only job that needs write scope, and only security-events:write
+  # so it can upload results to the code-scanning dashboard.
+  # ---------------------------------------------------------------------------
+  codeql:
+    name: CodeQL (javascript-typescript)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+      # actions:read is needed by CodeQL to read workflow run metadata on
+      # private repositories; harmless on public ones.
+      actions: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      - name: Initialize CodeQL
+        # github/codeql-action/init pinned to a full commit SHA.
+        uses: github/codeql-action/init@7188fc363630916deb702c7fdcf4e481b751f97a # v4.37.1
+        with:
+          languages: javascript-typescript
+
+      - name: Perform CodeQL Analysis
+        # github/codeql-action/analyze pinned to the SAME commit SHA as init.
+        uses: github/codeql-action/analyze@7188fc363630916deb702c7fdcf4e481b751f97a # v4.37.1
+        with:
+          category: '/language:javascript-typescript'
