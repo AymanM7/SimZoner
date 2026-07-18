@@ -1,4 +1,4 @@
-# Cloud Compute (Python Worker) dependencies. Both are supported on Cloudflare
-# Python Workers and vendored at deploy by pywrangler.
-fastapi
-numpy
+# No external Python packages. The worker uses only the standard library plus the
+# Cloudflare `workers` runtime module, so it runs under plain `wrangler dev` without
+# the beta pywrangler package-vendoring toolchain. (numpy/FastAPI were dropped: a
+# 5-feature dot product and manual routing don't need them.)

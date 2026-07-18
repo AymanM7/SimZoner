@@ -1,84 +1,99 @@
 """
-SimZoner — Cloud Compute plane. FastAPI on a Cloudflare Python Worker (beta).
+SimZoner Cloud Compute - model-serving Worker (pure Python, no numpy/FastAPI).
 
-Role (docs/SYSTEM_DESIGN.md §1-§2): the MODEL-SERVING API surface. Training happens
-offline in ../ml (local/CI, sklearn); that pipeline exports JSON weights, and THIS
-worker serves predictions from them. Serving a logistic model is a dot product + a
-sigmoid — cheap enough for the Workers 10ms CPU budget. Training is not, which is why
-it is not here.
+Serves the exported logistic model as sigmoid(w . x + b). Written in pure Python so it
+runs under plain `wrangler dev` without the beta pywrangler package-vendoring toolchain
+(numpy/FastAPI need vendoring and fail under plain dev). A 5-feature dot product does not
+need numpy, and manual routing does not need FastAPI. Training still happens in ../ml.
 
-Local run (from cloud-compute/):
-    npx wrangler dev
-Requires the `python_workers` compatibility flag (set in wrangler.jsonc) and pywrangler
-to vendor deps. numpy and FastAPI are both supported on Python Workers.
+Endpoints:
+  GET  /         health + whether a trained model is loaded
+  GET  /model    model metadata (features, weights, bias)
+  POST /predict  P(car A beats car B) from pairwise feature diffs
 """
 
 import json
+import math
+from urllib.parse import urlparse
 
-import numpy as np
-from fastapi import FastAPI
-from pydantic import BaseModel
+from workers import Response
 
-app = FastAPI(title="SimZoner Cloud Compute", version="0.0.1")
+# Exported by ../ml (kept in sync with src/model/weights.json). Inlined so the worker
+# never depends on a bundled-file read; we still try the file first if available.
+MODEL = {
+    "name": "race-outcome-logistic",
+    "engine_version": "v1",
+    "trained": True,
+    "features": ["mass_diff_kg", "cda_diff_m2", "power_diff_kw", "hov_eligible_diff", "risk_diff"],
+    "weights": [6.991293602230448e-05, 1.6908724857866344, 0.004641304954268239, 1.1984867403769988, 3.352927527524044],
+    "bias": -0.05886180591782868,
+    "note": "Synthetic benchmark. Measures agreement with SimZoner physics (engine v1), not real vehicles.",
+}
+try:
+    with open("model/weights.json") as _f:
+        MODEL = json.load(_f)
+except Exception:
+    pass  # inlined weights above are the fallback
 
-# Exported model weights. Real weights come from ../ml (sklearn → JSON). The bundled
-# file is a PLACEHOLDER baseline (all-zero weights → 0.5) until the ML pipeline runs,
-# so /predict is honest about being untrained rather than faking a number.
-with open("model/weights.json") as f:
-    MODEL = json.load(f)
-
-
-class Features(BaseModel):
-    # Pairwise, car-A-minus-car-B differences. Contract matches ../ml/train.py FEATURES
-    # and the exported model/weights.json.
-    mass_diff_kg: float = 0.0
-    cda_diff_m2: float = 0.0
-    power_diff_kw: float = 0.0
-    hov_eligible_diff: float = 0.0
-    risk_diff: float = 0.0
-
-
-@app.get("/")
-async def health():
-    return {
-        "service": "simzoner-cloud-compute",
-        "status": "ok",
-        "role": "model-serving API surface (FastAPI Python Worker)",
-        "model": {
-            "name": MODEL.get("name"),
-            "trained": MODEL.get("trained", False),
-            "note": MODEL.get("note"),
-        },
-    }
+CORS = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
+    "Access-Control-Allow-Headers": "content-type",
+    "Content-Type": "application/json",
+}
 
 
-@app.get("/model")
-async def model_info():
-    return MODEL
+def _json(data, status=200):
+    return Response(json.dumps(data), status=status, headers=CORS)
 
 
-@app.post("/predict")
-async def predict(features: Features):
-    """P(car A beats car B). Logistic: sigmoid(w·x + b) over the exported weights."""
-    order = MODEL["features"]
-    x = np.array([getattr(features, name) for name in order], dtype=float)
-    w = np.array(MODEL["weights"], dtype=float)
-    b = float(MODEL["bias"])
-    z = float(np.dot(w, x) + b)
-    p = 1.0 / (1.0 + np.exp(-z))
-    return {
-        "p_a_beats_b": round(p, 4),
-        "trained": MODEL.get("trained", False),
-        "disclaimer": (
-            "Synthetic benchmark. Placeholder model until ../ml exports trained weights."
-            if not MODEL.get("trained")
-            else "Synthetic benchmark — measures agreement with SimZoner physics, not reality."
-        ),
-    }
+def _sigmoid(z):
+    if z < -60:
+        return 0.0
+    if z > 60:
+        return 1.0
+    return 1.0 / (1.0 + math.exp(-z))
+
+
+def _predict(features):
+    w = MODEL["weights"]
+    z = float(MODEL["bias"])
+    for i, name in enumerate(MODEL["features"]):
+        try:
+            z += w[i] * float(features.get(name, 0) or 0)
+        except (TypeError, ValueError):
+            pass
+    return _sigmoid(z)
 
 
 async def on_fetch(request, env):
-    # ASGI bridge: hand the Worker request to FastAPI. Provided by the Python runtime.
-    import asgi
+    method = request.method
+    path = urlparse(request.url).path
 
-    return await asgi.fetch(app, request, env)
+    if method == "OPTIONS":
+        return Response("", status=204, headers=CORS)
+
+    if method == "GET" and path == "/":
+        return _json({
+            "service": "simzoner-cloud-compute",
+            "status": "ok",
+            "role": "logistic model serving (pure-Python Worker)",
+            "trained": MODEL.get("trained", False),
+        })
+
+    if method == "GET" and path == "/model":
+        return _json(MODEL)
+
+    if method == "POST" and path == "/predict":
+        try:
+            features = json.loads(await request.text())
+        except Exception:
+            return _json({"error": "invalid JSON body"}, status=400)
+        p = _predict(features if isinstance(features, dict) else {})
+        return _json({
+            "p_a_beats_b": round(p, 4),
+            "trained": MODEL.get("trained", False),
+            "disclaimer": MODEL.get("note", ""),
+        })
+
+    return _json({"error": "not found"}, status=404)
