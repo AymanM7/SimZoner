@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ground: #070a0e;
+  --color-ground-2: #0b1016;
+  --color-panel: #0f151d;
+  --color-line: #1c2530;
+  --color-line-soft: #151d27;
+  --color-ink: #e8eef5;
+  --color-muted: #8794a5;
+  --color-faint: #5a6675;
+
+  --color-accent: #35e0d0;
+  --color-cyber: #dfe6f0;
+  --color-bmw: #4f8bff;
+  --color-waymo: #24d69a;
+
+  --color-good: #45d17f;
+  --color-warn: #f0b23c;
+  --color-bad: #ff5c47;
+
+  --font-sans: "Inter var", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+body {
+  background:
+    radial-gradient(1200px 600px at 12% -10%, #10202a 0%, transparent 55%),
+    radial-gradient(900px 500px at 100% 0%, #101a2a 0%, transparent 50%),
+    var(--color-ground);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.glass {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.012));
+  border: 1px solid var(--color-line);
+  border-radius: 16px;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 20px 40px -24px rgba(0, 0, 0, 0.7);
+}
+.glass-soft {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--color-line-soft);
+  border-radius: 14px;
+}
+.glow-cyan {
+  box-shadow: 0 0 0 1px rgba(53, 224, 208, 0.35), 0 0 28px -6px rgba(53, 224, 208, 0.55);
+}
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+.tnum {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.live-dot { animation: pulse-dot 1.6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .live-dot { animation: none; }
+}

@@ -1,0 +1,338 @@
+{
+  "i45-houston-galveston": {
+    "displayName": "I-45 Gulf Freeway (Downtown Houston to Galveston, TX)",
+    "lengthKm": 80.5,
+    "lengthMiles": 50.0,
+    "lengthNote": "Approximate driving distance from the Downtown Houston interchange (I-45/US-59) to the I-45 terminus at Broadway Ave on Galveston Island. Wikipedia/AARoads cite roughly 44 mi from downtown to the Galveston Causeway; the island segment adds several more miles. Treat as modeled/estimated, not a surveyed value.",
+    "sections": [
+      {
+        "name": "Downtown Houston interchange (I-45 / US-59 / Spur 5, Pierce Elevated area)",
+        "speedLimitMph": 60,
+        "speedLimitVerified": false,
+        "lanes": 8,
+        "hovLanes": 1,
+        "notes": "Urban core. 60 mph is the typical Houston urban-freeway posting but was not confirmed against an official TxDOT sign inventory for this exact segment; historically the whole Gulf Freeway was 55 mph from 1974-1995. Lane count is approximate (8 general-purpose plus 1 reversible HOV/Express lane in the median). Reversible HOV lane begins near St. Joseph Parkway / Emancipation Ave downtown."
+      },
+      {
+        "name": "Inner Gulf Freeway (Downtown to Sam Houston Tollway / Beltway 8)",
+        "speedLimitMph": 60,
+        "speedLimitVerified": false,
+        "lanes": 8,
+        "hovLanes": 1,
+        "notes": "Dense urban/suburban freeway, 8-10 general lanes in places after reconstruction. 60 mph estimated. Median reversible HOV/Express lane present."
+      },
+      {
+        "name": "Suburban Gulf Freeway (Beltway 8 to Webster / Clear Lake, ~Bay Area Blvd)",
+        "speedLimitMph": 65,
+        "speedLimitVerified": false,
+        "lanes": 8,
+        "hovLanes": 1,
+        "notes": "HOV/Express lane ENDS just south of Bay Area Blvd in Webster (approx mile 24-26 from downtown). South of here there is NO managed lane. 65 mph estimated."
+      },
+      {
+        "name": "Webster to Texas City / La Marque (through League City, Dickinson, Santa Fe)",
+        "speedLimitMph": 70,
+        "speedLimitVerified": false,
+        "lanes": 6,
+        "hovLanes": 0,
+        "notes": "Suburban-to-open freeway, 6-8 lanes. 70 mph estimated; some open stretches in this region are posted up to 75 mph per TxDOT, but the exact posting per subsegment was not verified. Active TxDOT widening near Lago Mar / south Gulf Freeway (targeted completion ~2026)."
+      },
+      {
+        "name": "Galveston Causeway crossing (Jones Bay / West Galveston Bay to Galveston Island)",
+        "speedLimitMph": 65,
+        "speedLimitVerified": false,
+        "lanes": 6,
+        "hovLanes": 0,
+        "notes": "Single fixed-span crossing carrying all I-45 traffic onto the island (parallel to the railroad causeway). 65 mph estimated. This is the sole limited-access route to Galveston and a known chokepoint for weekend/beach and hurricane-evacuation traffic."
+      },
+      {
+        "name": "Galveston Island (I-45 / Broadway Ave to terminus)",
+        "speedLimitMph": 60,
+        "speedLimitVerified": false,
+        "lanes": 6,
+        "hovLanes": 0,
+        "notes": "Freeway transitions to Broadway Ave / at-grade near the terminus; posted speed drops through the island. Estimated."
+      }
+    ],
+    "hovRule": {
+      "exists": true,
+      "occupancyMin": 2,
+      "startPoint": "Downtown Houston (reversible lane begins near St. Joseph Parkway / Emancipation Ave)",
+      "endPoint": "Just south of Bay Area Blvd in Webster, TX (approx 24-26 mi south of downtown). It does NOT continue to Galveston.",
+      "hours": "Reversible single lane. Inbound (toward downtown) Mon-Sun 5-11 a.m.; outbound (toward Webster) Mon-Sun 1-8 p.m. HOV-2+ (or motorcycle) required inbound 6:30-8 a.m. and outbound 5-6 p.m.; single-occupant vehicles may buy in as a HOT/Express toll lane at other operating times. On weekends all vehicles may use it for a documented $1.00 toll (HOV requirement lifted).",
+      "source": "https://www.ridemetro.org/riding-metro/hov-hot-express-lanes"
+    },
+    "bottlenecks": [
+      {
+        "name": "Downtown Houston Interchange (I-45 / US-59, Pierce Elevated / Spur 5)",
+        "locationDesc": "Northern anchor of the Gulf Freeway where it meets US-59 and the downtown loop, ~mile 0.",
+        "severityIndex": 0.9,
+        "reason": "Convergence of multiple interstates, tight ramps, and heavy commuter volumes; long-standing recurring congestion and the focus of the North Houston Highway Improvement Project (I-45 rebuild). Assigned high because it is a multi-freeway merge in the region's densest core.",
+        "source": "https://en.wikipedia.org/wiki/Interstate_45"
+      },
+      {
+        "name": "Sam Houston Tollway (Beltway 8) Interchange",
+        "locationDesc": "Gulf Freeway at Beltway 8, ~mile 15 south of downtown.",
+        "severityIndex": 0.65,
+        "reason": "Major beltway-to-interstate movement with high truck and commuter weaving. Moderate-to-high recurring congestion.",
+        "source": "https://en.wikipedia.org/wiki/Interstate_45"
+      },
+      {
+        "name": "Clear Lake / NASA - Webster (HOV terminus)",
+        "locationDesc": "Around Bay Area Blvd / NASA Rd 1, ~mile 24-26, where the managed lane ends.",
+        "severityIndex": 0.6,
+        "reason": "Managed-lane termination forces HOV traffic to merge into general lanes; combined with Clear Lake commuter volume this creates a recurring merge bottleneck.",
+        "source": "https://www.ridemetro.org/riding-metro/hov-hot-express-lanes"
+      },
+      {
+        "name": "Galveston Causeway",
+        "locationDesc": "I-45 crossing of West Galveston Bay onto Galveston Island, ~mile 44-48.",
+        "severityIndex": 0.75,
+        "reason": "Sole limited-access crossing to the island; severe peaking on summer weekends and beach events, and a critical single point of failure during hurricane evacuations. High assigned severity reflects the lack of an alternate high-capacity route.",
+        "source": "https://en.wikipedia.org/wiki/Interstate_45"
+      }
+    ],
+    "tolls": "The I-45 Gulf Freeway general-purpose (main) lanes are NOT tolled. The only tolling is on the median reversible HOV/HOT Express lane, where single-occupant vehicles may buy in during operating hours and all vehicles pay a documented $1.00 toll on weekends. Exact weekday single-occupant buy-in prices were NOT verified and are not stated here. Houston's broader toll network (Sam Houston Tollway / Beltway 8, Hardy Toll Road, etc., run by HCTRA) is a separate system and is not the Gulf Freeway mainlanes. Source: METRO HOV/HOT page.",
+    "tollsSource": "https://www.ridemetro.org/riding-metro/hov-hot-express-lanes",
+    "waymoReality": "Modeled entity, not a real deployment on this corridor. Waymo did launch a robotaxi service in the Houston metro (employee rides fall 2025, select public riders from Feb 2026, general availability targeted end of 2026), but that service is surface-street ridehailing within the metro. Waymo did NOT operate driverless service on the intercity I-45 Gulf Freeway to Galveston: freeway riders were limited to San Francisco, Los Angeles, Phoenix, and Miami (Houston was never in freeway service), and Waymo paused ALL freeway rides in May 2026 pending a construction-zone software update. So driverless operation along this specific Houston-to-Galveston freeway corridor is not real; treat Waymo here as a simulated actor.",
+    "waymoRealitySource": "https://www.cnbc.com/2026/02/24/waymo-opens-robotaxi-service-to-select-riders-in-4-more-us-cities.html"
+  },
+  "cincinnati-i71-75": {
+    "displayName": "I-75 Cincinnati (I-71/I-75 Brent Spence corridor)",
+    "lengthKm": 12.9,
+    "lengthMiles": 8.0,
+    "lengthNote": "Approximately 8 miles of combined I-71/I-75 through Ohio and Kentucky, matching the footprint of the Brent Spence Bridge Corridor (BSBC) project. The Brent Spence Bridge itself is only about 0.5 mi. Modeled/estimated stretch.",
+    "sections": [
+      {
+        "name": "I-71/I-75 north approach (Ohio side, Fort Washington Way / downtown Cincinnati split)",
+        "speedLimitMph": 55,
+        "speedLimitVerified": false,
+        "lanes": 4,
+        "hovLanes": 0,
+        "notes": "Urban Cincinnati freeway with the I-71/I-75 merge and closely spaced downtown ramps. 55 mph is the typical Ohio urban-interstate posting but was not confirmed against an official ODOT sign inventory for this segment. No HOV lanes exist."
+      },
+      {
+        "name": "Brent Spence Bridge (Ohio River crossing, I-71/I-75 combined double-deck)",
+        "speedLimitMph": 50,
+        "speedLimitVerified": false,
+        "lanes": 4,
+        "hovLanes": 0,
+        "notes": "Double-deck cantilevered truss: top deck carries Kentucky-bound (southbound) traffic, bottom deck Ohio-bound (northbound). Originally 3 lanes per direction with emergency shoulders; in 1985 the shoulders were eliminated and it was re-striped to 4 narrow lanes per direction with NO emergency shoulder. Designed for ~85,000 vehicles/day, carried ~150,000+ by 2006. Speed limit estimated (posted lower than approaches); not verified."
+      },
+      {
+        "name": "I-71/I-75 south approach (Kentucky side, Covington)",
+        "speedLimitMph": 55,
+        "speedLimitVerified": false,
+        "lanes": 4,
+        "hovLanes": 0,
+        "notes": "Kentucky approach through Covington with left-hand exits and heavy weaving into the bridge. 55 mph estimated; not verified. No HOV lanes."
+      }
+    ],
+    "hovRule": {
+      "exists": false,
+      "occupancyMin": null,
+      "startPoint": null,
+      "endPoint": null,
+      "hours": null,
+      "source": "https://en.wikipedia.org/wiki/Brent_Spence_Bridge",
+      "notes": "Confirmed: I-71/I-75 through Cincinnati has NO HOV or managed lanes. The corridor is all general-purpose; congestion relief is being pursued via the new companion bridge, not managed lanes."
+    },
+    "bottlenecks": [
+      {
+        "name": "Brent Spence Bridge",
+        "locationDesc": "I-71/I-75 Ohio River crossing between Cincinnati, OH and Covington, KY.",
+        "severityIndex": 0.95,
+        "reason": "Nationally notorious bottleneck: double-deck design with 4 narrow lanes per deck and NO emergency shoulders, left-hand exits, and heavy truck weaving where I-71 and I-75 combine. Built for ~85,000 vehicles/day but carrying ~150,000+, and ranked among the nation's worst truck bottlenecks (about 8th nationally for truck bottlenecks in 2025). One of the busiest freight routes in the U.S. (>$1B of freight/day). Assigned near-maximum severity.",
+        "source": "https://en.wikipedia.org/wiki/Brent_Spence_Bridge"
+      },
+      {
+        "name": "I-71 / I-75 downtown split and Fort Washington Way (Ohio approach)",
+        "locationDesc": "Just north of the bridge where I-71 and I-75 diverge near downtown Cincinnati.",
+        "severityIndex": 0.7,
+        "reason": "Merging/diverging of the two interstates immediately before the bridge causes weaving and queue spillback into downtown Cincinnati. Assigned high-moderate because it directly feeds the bridge bottleneck.",
+        "source": "https://news.constructconnect.com/cincinnatis-3.6-billion-brent-spence-bridge-corridor-project-expected-to-start-in-early-2026"
+      }
+    ],
+    "tolls": "The Brent Spence Bridge and the surrounding I-71/I-75 corridor are currently NOT tolled. The $3.6B Brent Spence Bridge Corridor project (federal funding package of about $1.6B signed Dec 2022; groundbreaking May 8, 2026) is building a new companion bridge (cable-stayed, five lanes each direction) alongside the existing bridge, which will be reduced from 4 to 3 lanes per direction with shoulders re-established for local traffic. The governors of Ohio and Kentucky have publicly stated the new bridge will NOT require tolls. No toll prices exist to quote.",
+    "tollsSource": "https://en.wikipedia.org/wiki/Brent_Spence_Bridge",
+    "waymoReality": "Modeled entity, not a real deployment. Waymo does NOT operate any driverless robotaxi service in Cincinnati or anywhere in Ohio/Kentucky as of mid-2026; its public metros are Phoenix, San Francisco, Los Angeles, Atlanta, Austin, Dallas, San Antonio, Orlando, Miami, Nashville, and Houston (plus newer/testing markets like Las Vegas, Denver, San Diego, Tampa, Detroit, and Washington D.C.). Cincinnati is not among them, and Waymo paused all freeway rides in May 2026 regardless. Treat Waymo on this corridor as a purely simulated actor.",
+    "waymoRealitySource": "https://www.cnbc.com/2026/07/08/waymo-starts-driverless-rides-in-san-diego-las-vegas-tampa-denver.html"
+  },
+  "sources": [
+    {
+      "label": "Wikipedia - Interstate 45 (Gulf Freeway, HOV, Galveston Causeway)",
+      "url": "https://en.wikipedia.org/wiki/Interstate_45"
+    },
+    {
+      "label": "Houston METRO - HOV / HOT Express Lanes (I-45 South hours, terminals, occupancy)",
+      "url": "https://www.ridemetro.org/riding-metro/hov-hot-express-lanes"
+    },
+    {
+      "label": "HCTRA - HOV/HOT lane schedule (PDF)",
+      "url": "https://www.hctra.org/-/media/6FED8E01CD2040A7B7F92972A9A8918D.ashx"
+    },
+    {
+      "label": "Wikipedia - Brent Spence Bridge (lanes, capacity, no-toll companion bridge)",
+      "url": "https://en.wikipedia.org/wiki/Brent_Spence_Bridge"
+    },
+    {
+      "label": "Brent Spence Bridge Corridor - official project / fact sheet",
+      "url": "https://brentspencebridgecorridor.com/fact-sheet/"
+    },
+    {
+      "label": "ConstructConnect - $3.6B Brent Spence Corridor project, 8-mile scope, 2026 start",
+      "url": "https://news.constructconnect.com/cincinnatis-3.6-billion-brent-spence-bridge-corridor-project-expected-to-start-in-early-2026"
+    },
+    {
+      "label": "CNBC - Waymo opens robotaxi service to select riders in Houston, Dallas, San Antonio, Orlando (Feb 2026)",
+      "url": "https://www.cnbc.com/2026/02/24/waymo-opens-robotaxi-service-to-select-riders-in-4-more-us-cities.html"
+    },
+    {
+      "label": "TechCrunch - Waymo halts freeway rides (May 2026)",
+      "url": "https://techcrunch.com/2026/05/21/waymo-halts-freeway-rides-after-robotaxis-struggle-in-construction-zones/"
+    },
+    {
+      "label": "CNBC - Waymo starts driverless rides in San Diego, Las Vegas, Tampa, Denver (Jul 2026)",
+      "url": "https://www.cnbc.com/2026/07/08/waymo-starts-driverless-rides-in-san-diego-las-vegas-tampa-denver.html"
+    }
+  ],
+  "disclaimer": "VERIFIED vs MODELED. Verified from cited sources: (1) the I-45 South Gulf Freeway HOV/HOT reversible Express lane exists, is 2+ occupancy during peak windows, runs from downtown Houston to just south of Bay Area Blvd in Webster, and does NOT continue to Galveston (per Houston METRO); (2) its weekend $1.00 all-vehicle toll; (3) the Gulf Freeway mainlanes are non-tolled and Houston's HCTRA tollways are a separate network; (4) Cincinnati I-71/I-75 has NO HOV lanes; (5) the Brent Spence Bridge is a shoulderless double-deck 4-lanes-per-direction crossing designed for ~85k but carrying ~150k+ vehicles/day and is a top national (truck) bottleneck; (6) the $3.6B companion-bridge project (5 lanes each way, existing bridge cut to 3 lanes/direction) with no planned tolls, groundbreaking May 2026; (7) Waymo has no Cincinnati service and its Houston service is surface-street ridehailing, not freeway/intercity operation (all freeway rides paused May 2026). MODELED / ESTIMATED (not surveyed): all corridor lengths (approximate driving distances), ALL posted speed limits (marked speedLimitVerified=false - Houston/Cincinnati urban interstate values are typical postings, not confirmed against official TxDOT/ODOT/KYTC sign inventories), all per-section lane counts (approximate), and every bottleneck severityIndex (0..1 values assigned by the engineer as relative congestion judgments, not measured). Do not treat estimated values as authoritative for engineering or legal purposes.",
+  "i35-south-austin": {
+    "displayName": "I-35 South (San Antonio to Austin, TX)",
+    "lengthKm": 121.7,
+    "lengthMiles": 75.6,
+    "lengthNote": "Haversine length of the modeled 25-vertex i35.geojson polyline (~121.7 km / ~75.6 mi). The real signed I-35 driving distance from downtown San Antonio to downtown Austin is roughly 79 mi / 127 km; the modeled coarse polyline runs slightly short of that. Treat as modeled/estimated, not a surveyed value.",
+    "sections": [
+      {
+        "name": "Downtown San Antonio (I-35 / I-10 / I-37 downtown interchanges)",
+        "speedLimitMph": 60,
+        "speedLimitVerified": false,
+        "lanes": 8,
+        "hovLanes": 0,
+        "notes": "Urban core through downtown San Antonio with tightly spaced ramps and the I-10/I-35 and I-35/I-37 interchanges. 60 mph is a typical Texas urban-freeway posting but was NOT confirmed against an official TxDOT sign inventory for this exact segment. Lane count approximate. No HOV/managed lanes exist here."
+      },
+      {
+        "name": "Northeast San Antonio to Selma / Schertz (through Live Oak, Universal City)",
+        "speedLimitMph": 65,
+        "speedLimitVerified": false,
+        "lanes": 8,
+        "hovLanes": 0,
+        "notes": "Suburban San Antonio, 8-10 general-purpose lanes in places. 65 mph estimated; not verified. No HOV/managed lanes. Retail/interchange density around Selma and Schertz."
+      },
+      {
+        "name": "Schertz / Cibolo to New Braunfels",
+        "speedLimitMph": 70,
+        "speedLimitVerified": false,
+        "lanes": 6,
+        "hovLanes": 0,
+        "notes": "Transitional suburban-to-open freeway. 70 mph estimated; some open Texas stretches are posted up to 75 mph but the exact per-subsegment posting was not verified. No managed lanes."
+      },
+      {
+        "name": "New Braunfels to San Marcos",
+        "speedLimitMph": 70,
+        "speedLimitVerified": false,
+        "lanes": 6,
+        "hovLanes": 0,
+        "notes": "Open freeway between the two river towns. 70 mph estimated; not verified. Recurring weekend/tuber and outlet-mall traffic near the San Marcos Premium Outlets. No managed lanes."
+      },
+      {
+        "name": "San Marcos through Kyle and Buda (Hays County commuter belt)",
+        "speedLimitMph": 65,
+        "speedLimitVerified": false,
+        "lanes": 6,
+        "hovLanes": 0,
+        "notes": "One of the fastest-growing commuter stretches in Texas; frequent recurring congestion around Kyle and Buda. 65 mph estimated; not verified. No managed lanes today. This segment falls within/near the limits of TxDOT's future I-35 Capital Express South managed-lane project (see hovRule)."
+      },
+      {
+        "name": "Buda to South Austin (Slaughter Ln / Ben White Blvd / SH 71)",
+        "speedLimitMph": 60,
+        "speedLimitVerified": false,
+        "lanes": 8,
+        "hovLanes": 0,
+        "notes": "Freeway densifies approaching Austin. 60 mph estimated; not verified. ACTIVE construction zone: TxDOT I-35 Capital Express South is building elevated managed (HOV) lanes here between SH 71/Ben White and SH 45 SE (targeted completion ~late 2028). No managed lanes are OPEN to traffic today (hovLanes = 0)."
+      },
+      {
+        "name": "Central / Downtown Austin (SH 71/Ben White to US 290 E, Lady Bird Lake)",
+        "speedLimitMph": 60,
+        "speedLimitVerified": false,
+        "lanes": 8,
+        "hovLanes": 0,
+        "notes": "Downtown Austin I-35 with upper/lower decks near the Lady Bird Lake bridge and closely spaced frontage-road ramps; one of Texas's most notorious congestion points. 60 mph estimated; not verified. ACTIVE construction: TxDOT I-35 Capital Express Central (~$5.6B, work began early 2025, ~2033 completion) is rebuilding this ~8-mile segment and adding two non-tolled HOV managed lanes per direction. None are OPEN yet (hovLanes = 0)."
+      }
+    ],
+    "hovRule": {
+      "exists": false,
+      "occupancyMin": null,
+      "startPoint": null,
+      "endPoint": null,
+      "hours": null,
+      "source": "https://www.txdot.gov/mymobility35/projects/capex-central.html",
+      "notes": "As of mid-2026 I-35 itself carries NO open HOV/managed lanes on the San Antonio-Austin corridor, so hovLanes is modeled as 0 on every section. This is VERIFIED as an under-construction, not-yet-open situation: TxDOT's I-35 Capital Express Central project (US 290 E to SH 71/Ben White, work started early 2025, ~2033 finish) and Capital Express South project (SH 71/Ben White to SH 45 SE, ~late 2028 finish) will EACH add two non-tolled high-occupancy-vehicle managed lanes per direction. When open these will be the corridor's first I-35 HOV lanes. Important disambiguation: the well-known Austin MoPac (Loop 1) Express Lanes are a DIFFERENT road (a tolled variable-price managed lane on Loop 1, run by the Central Texas Regional Mobility Authority) and are NOT on I-35. Do not attribute MoPac's managed lanes to I-35."
+    },
+    "bottlenecks": [
+      {
+        "name": "Downtown Austin I-35 (upper/lower decks, Lady Bird Lake to US 290 E)",
+        "locationDesc": "Central Austin I-35 through downtown, roughly SH 71/Ben White north to US 290 East; the double-decked segment over/near Lady Bird Lake.",
+        "severityIndex": 0.95,
+        "reason": "Perennially ranked among Texas's (and the nation's) worst freeway bottlenecks: 1950s-era double-deck design, frontage-road weaving, no shoulders in places, and metro-wide commuter plus I-35 through-freight volumes converging on downtown. Now compounded by the multi-year Capital Express Central reconstruction. Assigned near-maximum severity.",
+        "source": "https://www.txdot.gov/mymobility35/projects/capex-central.html"
+      },
+      {
+        "name": "Buda / Kyle (Hays County) commuter squeeze",
+        "locationDesc": "I-35 through Buda and Kyle, roughly the FM 1626 / Kyle Pkwy / Buda area south of Austin (near [-97.841, 30.083]).",
+        "severityIndex": 0.75,
+        "reason": "Explosive suburban growth in Hays County funnels a large commuter volume onto a 6-lane freeway section, producing heavy recurring AM/PM peak congestion and queue spillback. High severity reflects growth outpacing capacity ahead of the Capital Express South widening.",
+        "source": "https://www.txdot.gov/mymobility35/projects/capex-south.html"
+      },
+      {
+        "name": "San Marcos (outlet malls / river-recreation traffic)",
+        "locationDesc": "I-35 through San Marcos near the Premium/Tanger outlet centers and the university/river area (near [-97.941, 29.883]).",
+        "severityIndex": 0.7,
+        "reason": "Interchange-dense segment with major outlet-mall trip generation, Texas State University traffic, and heavy summer tubing/river-recreation peaks stacking onto through traffic. Recurring weekend and holiday congestion. Moderate-high severity.",
+        "source": "https://en.wikipedia.org/wiki/Interstate_35_in_Texas"
+      },
+      {
+        "name": "New Braunfels (Comal / Schlitterbahn corridor)",
+        "locationDesc": "I-35 through New Braunfels (near [-98.124, 29.703]).",
+        "severityIndex": 0.6,
+        "reason": "Regional tourism draw (Comal/Guadalupe rivers, Schlitterbahn) plus growing bedroom-community commuting between San Antonio and Austin creates recurring weekend and peak congestion where the freeway narrows. Moderate severity.",
+        "source": "https://en.wikipedia.org/wiki/Interstate_35_in_Texas"
+      }
+    ],
+    "tolls": "The I-35 mainlanes between San Antonio and Austin are NOT tolled and are free to drive. The primary tolled ALTERNATIVE is SH 130 (State Highway 130), a ~91-mile toll road running east and south of Austin that parallels I-35 as a bypass; its southern section (SH 130 South, roughly SH 45 SE in Mustang Ridge to I-10 in Seguin, ~41 mi) is privately operated with all-electronic cashless tolling and a posted speed limit up to 85 mph. Operators advertise substantial time savings versus I-35 in this corridor. Exact SH 130 toll PRICES vary by class/segment and payment method (TxTag/toll-tag vs pay-by-mail, with tag customers paying materially less) and were NOT verified to a specific dollar amount here, so no rate is quoted. The future I-35 Capital Express managed (HOV) lanes are planned as NON-tolled. Do not confuse SH 130 (tolled bypass) with I-35 (free mainlanes).",
+    "tollsSource": "https://en.wikipedia.org/wiki/Texas_State_Highway_130",
+    "waymoReality": "Modeled actor on this corridor, not a real intercity-freeway deployment. VERIFIED: Waymo does operate a driverless robotaxi service in Austin, launched to the public via the Waymo-Uber partnership in early 2025 (Uber-app matching began March 2025; roughly 100 vehicles cited by mid-2025). That service is SURFACE-STREET ridehailing within an Austin operating zone, NOT operation on the intercity I-35 freeway between San Antonio and Austin. Waymo also runs in San Antonio as a separate metro service. There is no verified Waymo driverless service running the I-35 mainlanes San Antonio-to-Austin as an intercity route; corridor-level 'Waymo' behavior in this model should be treated as simulated. (Consistent with the other corridors' note that Waymo paused all freeway rides in May 2026 pending a construction-zone software update.)",
+    "waymoRealitySource": "https://techcrunch.com/2025/03/04/uber-users-in-austin-are-getting-matched-with-waymo-robotaxis/",
+    "disclaimer": "VERIFIED vs MODELED. Verified from cited sources: (1) I-35 currently has NO open HOV/managed lanes on the San Antonio-Austin corridor; TxDOT's Capital Express Central (US 290 E to SH 71/Ben White, started early 2025, ~2033) and Capital Express South (SH 71/Ben White to SH 45 SE, ~2028) projects will each ADD two non-tolled HOV managed lanes per direction, none open yet -> hovLanes modeled as 0; (2) the Austin MoPac/Loop 1 Express Lanes are a separate tolled road, not I-35; (3) the I-35 mainlanes are non-tolled and SH 130 is the tolled parallel bypass (up to 85 mph, all-electronic tolling); (4) downtown Austin I-35 is a top-tier notorious bottleneck and the San Marcos/Kyle/Buda stretch is heavily congested and growing; (5) Waymo runs a real driverless surface-street robotaxi service in Austin via the Uber partnership (public since 2025) but not as an I-35 intercity-freeway operation. MODELED / ESTIMATED (not surveyed): the corridor length (haversine over a coarse hand-placed polyline; ~75.6 mi modeled vs ~79 mi real driving distance); ALL posted speed limits (every section has speedLimitVerified=false - values are typical Texas urban/rural interstate postings, NOT confirmed against an official TxDOT sign inventory); all per-section lane counts (approximate); and every bottleneck severityIndex (0..1 values assigned as relative congestion judgments, not measured). Named geojson waypoint coordinates are real; intermediate polyline vertices are approximated to follow the alignment. Do not treat estimated values as authoritative for engineering or legal purposes.",
+    "sources": [
+      {
+        "label": "TxDOT My35 / Mobility35 - I-35 Capital Express Central project (managed HOV lanes, downtown Austin rebuild)",
+        "url": "https://www.txdot.gov/mymobility35/projects/capex-central.html"
+      },
+      {
+        "label": "TxDOT My35 / Mobility35 - I-35 Capital Express South project (managed HOV lanes, SH 71 to SH 45 SE)",
+        "url": "https://www.txdot.gov/mymobility35/projects/capex-south.html"
+      },
+      {
+        "label": "Wikipedia - Texas State Highway 130 (tolled I-35 bypass, 85 mph, cashless tolling)",
+        "url": "https://en.wikipedia.org/wiki/Texas_State_Highway_130"
+      },
+      {
+        "label": "SH 130 South - official toll road site (Austin-San Antonio alternate route)",
+        "url": "https://mysh130.com/"
+      },
+      {
+        "label": "Wikipedia - Interstate 35 in Texas (alignment, cities, congestion)",
+        "url": "https://en.wikipedia.org/wiki/Interstate_35_in_Texas"
+      },
+      {
+        "label": "TechCrunch - Uber users in Austin matched with Waymo robotaxis (Mar 2025 public launch)",
+        "url": "https://techcrunch.com/2025/03/04/uber-users-in-austin-are-getting-matched-with-waymo-robotaxis/"
+      },
+      {
+        "label": "Equipment World - TxDOT I-35 Central project to speed up in 2026",
+        "url": "https://www.equipmentworld.com/roadbuilding/article/15774495/txdot-i35-central-project-to-speed-up-in-2026"
+      }
+    ]
+  }
+}
