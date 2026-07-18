@@ -1,8 +1,27 @@
 {
   "name": "race-outcome-logistic",
-  "trained": false,
-  "note": "PLACEHOLDER. All-zero weights → P=0.5 for any input. Replaced by ../ml export once the sklearn pipeline runs (docs/ML_APPROACH.md).",
-  "features": ["mass_diff_kg", "cda_diff_m2", "power_diff_kw", "hov_eligible_diff", "start_pos_diff"],
-  "weights": [0.0, 0.0, 0.0, 0.0, 0.0],
-  "bias": 0.0
+  "engine_version": "v1",
+  "trained": true,
+  "features": [
+    "mass_diff_kg",
+    "cda_diff_m2",
+    "power_diff_kw",
+    "hov_eligible_diff",
+    "risk_diff"
+  ],
+  "weights": [
+    6.991293602230448e-05,
+    1.6908724857866344,
+    0.004641304954268239,
+    1.1984867403769988,
+    3.352927527524044
+  ],
+  "bias": -0.05886180591782868,
+  "metrics": {
+    "test_accuracy": 0.8829,
+    "gbm_test_accuracy": 0.8947,
+    "majority_baseline": 0.5058,
+    "n_rows": 11868
+  },
+  "note": "Synthetic benchmark. Measures agreement with SimZoner physics (engine v1), not real vehicles."
 }

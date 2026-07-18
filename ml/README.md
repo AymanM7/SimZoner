@@ -14,19 +14,42 @@ Worker**, because training needs minutes of CPU and Workers give 10ms. See
   baseline on an untouched test split.
 - **LangChain does not train** — it's orchestration/RAG only. Training is sklearn here.
 
-## Planned pipeline (not yet built)
+## Pipeline (built)
 
-1. Generate synthetic races from the physics engine with injected noise (traffic, weather,
-   driver variance, HOV eligibility).
-2. Features = pairwise spec/segment/traffic diffs. Label = winner (or margin regression).
-3. Baseline: **logistic regression** — its weights export to a dot product the Cloud Compute
-   worker (and, if wanted, the TS edge) can serve with zero heavy deps.
-4. Ceiling probe: gradient boosting / LSTM on a prefix-forecasting task — compared, likely not
-   shipped to the edge (doesn't port to 10ms CPU).
-5. Proper train/val/test split; export winning logistic weights → `../cloud-compute/src/model/weights.json`.
+| Step | File | What it does |
+|---|---|---|
+| 0 | `physics.py` | Python mirror of `backend/src/physics.ts` — **bit-parity verified** (identical race to 0.00e+00) |
+| 1 | `generate.py` | 6,000 races → 11,868 pairwise rows, with per-race traffic noise + per-car jitter |
+| 2 | `train.py` | logistic (shipped) + gradient boosting (ceiling probe); proper 60/20/20 split; exports weights |
 
-## Status
+```bash
+cd ml
+python generate.py    # writes data/races.parquet
+python train.py       # trains, evaluates on test ONCE, exports ../cloud-compute/src/model/weights.json
+```
 
-Scaffold only. The physics engine (in [`../backend`](../backend)) must exist before races can be
-generated. This folder is the labeled home for that work so it never gets confused with the
-edge serving code.
+## Results (synthetic benchmark — engine v1)
+
+| Model | Test accuracy |
+|---|---|
+| Majority-class baseline | 0.506 |
+| "Higher-risk driver wins" heuristic | 0.882 |
+| **Logistic (shipped)** | **0.883** |
+| Gradient boosting (ceiling probe, not shipped) | 0.895 |
+
+**Read this honestly.** The logistic model barely beats a one-line heuristic (0.883 vs 0.882),
+and gradient boosting adds only ~1 point — not enough to justify shipping a nonlinear model to
+the edge. The honest finding: **with only three vehicles and persona aggression dominating, the
+outcome is mostly "who's more aggressive + who has HOV access."** That's what the physics says,
+and the model faithfully recovers it.
+
+### The coefficient sign-check caught something real
+
+`cda_diff` has a **positive** weight — higher drag → more likely to win, which is physically
+backwards. It's not a physics bug: it's **collinearity**. With only 3 cars, the highest-drag car
+(Cybertruck) is also the highest-power, highest-risk car, so the linear model can't separate
+them. Exactly the failure the sign-check exists to surface (ML_APPROACH §5.1). More vehicles
+would fix it.
+
+Accuracy measures agreement with our own physics (engine v1), **not** real vehicles — every
+served prediction carries that disclaimer.

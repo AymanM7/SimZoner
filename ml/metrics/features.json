@@ -1,0 +1,99 @@
+{
+  "model": "race-outcome-logistic (C=0.1, StandardScaler, 60/20/20 stratified)",
+  "test_accuracy": 0.8829,
+  "n_rows": 11868,
+  "cars": [
+    "bmw-m5-g90",
+    "cybertruck-cyberbeast",
+    "waymo-ipace"
+  ],
+  "features": [
+    "mass_diff_kg",
+    "cda_diff_m2",
+    "power_diff_kw",
+    "hov_eligible_diff",
+    "risk_diff"
+  ],
+  "standardized_coefficients": {
+    "mass_diff_kg": 0.04933,
+    "cda_diff_m2": 0.47789,
+    "power_diff_kw": 1.11432,
+    "hov_eligible_diff": 0.84603,
+    "risk_diff": 1.25248
+  },
+  "correlation_matrix": {
+    "mass_diff_kg": {
+      "mass_diff_kg": 1.0,
+      "cda_diff_m2": 0.98265,
+      "power_diff_kw": 0.88731,
+      "hov_eligible_diff": -0.00433,
+      "risk_diff": 0.8535
+    },
+    "cda_diff_m2": {
+      "mass_diff_kg": 0.98265,
+      "cda_diff_m2": 1.0,
+      "power_diff_kw": 0.95745,
+      "hov_eligible_diff": -0.00017,
+      "risk_diff": 0.93534
+    },
+    "power_diff_kw": {
+      "mass_diff_kg": 0.88731,
+      "cda_diff_m2": 0.95745,
+      "power_diff_kw": 1.0,
+      "hov_eligible_diff": 0.00632,
+      "risk_diff": 0.99763
+    },
+    "hov_eligible_diff": {
+      "mass_diff_kg": -0.00433,
+      "cda_diff_m2": -0.00017,
+      "power_diff_kw": 0.00632,
+      "hov_eligible_diff": 1.0,
+      "risk_diff": 0.00779
+    },
+    "risk_diff": {
+      "mass_diff_kg": 0.8535,
+      "cda_diff_m2": 0.93534,
+      "power_diff_kw": 0.99763,
+      "hov_eligible_diff": 0.00779,
+      "risk_diff": 1.0
+    }
+  },
+  "permutation_importance": {
+    "mass_diff_kg": {
+      "mean": -0.00072,
+      "std": 0.00174
+    },
+    "cda_diff_m2": {
+      "mean": -0.00225,
+      "std": 0.00212
+    },
+    "power_diff_kw": {
+      "mean": 0.05617,
+      "std": 0.00573
+    },
+    "hov_eligible_diff": {
+      "mean": 0.03005,
+      "std": 0.0055
+    },
+    "risk_diff": {
+      "mean": 0.10194,
+      "std": 0.00673
+    }
+  },
+  "verdict": "SUPPORTED",
+  "finding": "COLLINEARITY EXPLAINS THE FLIP (SUPPORTED). The cda_diff coefficient is positive (+0.478 std), which is physically backwards -- more drag should hurt. But with only 3 cars, drag is nearly collinear with power (r=0.96) and risk (r=0.94); power and risk correlate at r=1.00. The genuinely predictive, physically-correct signals (power+, risk+) load onto these correlated axes; L2 regularization (C=0.1) then splits the shared weight and lets drag absorb a positive sign it does not causally deserve. Permutation importance ranks features by real predictive contribution as risk_diff > power_diff_kw > hov_eligible_diff > mass_diff_kg > cda_diff_m2, which does not mirror the distorted raw-coefficient magnitudes -- the signature of collinearity. SYNTHETIC BENCHMARK: reflects SimZoner physics engine v1, not real vehicles.",
+  "evidence": {
+    "cda_diff_coef_std": 0.47789,
+    "r_cda_power": 0.95745,
+    "r_cda_risk": 0.93534,
+    "r_power_risk": 0.99763,
+    "permutation_ranking": [
+      "risk_diff",
+      "power_diff_kw",
+      "hov_eligible_diff",
+      "mass_diff_kg",
+      "cda_diff_m2"
+    ]
+  },
+  "caveat": "SYNTHETIC BENCHMARK: measures agreement with SimZoner physics engine v1, not real vehicles. Only 3 cars generate all pairwise diffs."
+}

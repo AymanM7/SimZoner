@@ -29,12 +29,13 @@ with open("model/weights.json") as f:
 
 
 class Features(BaseModel):
-    # Pairwise, car-A-minus-car-B differences (see ../ml for the feature contract).
+    # Pairwise, car-A-minus-car-B differences. Contract matches ../ml/train.py FEATURES
+    # and the exported model/weights.json.
     mass_diff_kg: float = 0.0
     cda_diff_m2: float = 0.0
     power_diff_kw: float = 0.0
     hov_eligible_diff: float = 0.0
-    start_pos_diff: float = 0.0
+    risk_diff: float = 0.0
 
 
 @app.get("/")

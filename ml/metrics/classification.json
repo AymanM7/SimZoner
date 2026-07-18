@@ -1,0 +1,66 @@
+{
+  "dataset": "held-out test set (synthetic race sim benchmark)",
+  "n_rows": 2374,
+  "overall_accuracy": 0.8829,
+  "classes": {
+    "B wins": {
+      "label": 0,
+      "precision": 0.8786,
+      "recall": 0.8918,
+      "f1": 0.8851,
+      "support": 1201
+    },
+    "A wins": {
+      "label": 1,
+      "precision": 0.8874,
+      "recall": 0.8738,
+      "f1": 0.8806,
+      "support": 1173
+    }
+  },
+  "confusion_matrix": {
+    "layout": "rows=actual [B wins, A wins], cols=predicted [B wins, A wins]",
+    "counts": [
+      [
+        1071,
+        130
+      ],
+      [
+        148,
+        1025
+      ]
+    ],
+    "row_normalized": [
+      [
+        0.8918,
+        0.1082
+      ],
+      [
+        0.1262,
+        0.8738
+      ]
+    ]
+  },
+  "per_route_accuracy": [
+    {
+      "route_id": "i35-south-austin",
+      "accuracy": 0.9113,
+      "n": 609
+    },
+    {
+      "route_id": "cincinnati-i71-75",
+      "accuracy": 0.8889,
+      "n": 594
+    },
+    {
+      "route_id": "chicago-kennedy",
+      "accuracy": 0.8777,
+      "n": 597
+    },
+    {
+      "route_id": "i45-houston-galveston",
+      "accuracy": 0.8519,
+      "n": 574
+    }
+  ]
+}
