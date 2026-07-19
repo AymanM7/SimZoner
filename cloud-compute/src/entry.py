@@ -22,12 +22,12 @@ from workers import Response
 # never depends on a bundled-file read; we still try the file first if available.
 MODEL = {
     "name": "race-outcome-logistic",
-    "engine_version": "v1",
+    "engine_version": "v2",
     "trained": True,
-    "features": ["mass_diff_kg", "cda_diff_m2", "power_diff_kw", "hov_eligible_diff", "risk_diff"],
-    "weights": [6.991293602230448e-05, 1.6908724857866344, 0.004641304954268239, 1.1984867403769988, 3.352927527524044],
-    "bias": -0.05886180591782868,
-    "note": "Synthetic benchmark. Measures agreement with SimZoner physics (engine v1), not real vehicles.",
+    "features": ["mass_diff_kg", "cda_diff_m2", "power_diff_kw", "hov_eligible_diff", "risk_diff", "cda_rho_diff", "mass_mu_diff"],
+    "weights": [-0.00015233887864124376, 0.2710623385247246, 0.0014822020902678973, 2.3137719183265433, 1.117544896289772, 0.5245572884858044, -0.0004020237143283215],
+    "bias": 0.0075829903057291655,
+    "note": "Synthetic benchmark. Measures agreement with SimZoner physics (engine v2), not real vehicles.",
 }
 try:
     with open("model/weights.json") as _f:

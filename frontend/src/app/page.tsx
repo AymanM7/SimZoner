@@ -4,7 +4,11 @@ import dynamic from "next/dynamic";
 import { useStore } from "../store";
 import { useSimLoop } from "../lib/useSimLoop";
 import { CORRIDOR_LIST } from "../lib/corridors";
+import { WEATHER } from "../lib/engine";
 import { MLPredictor } from "../components/MLPredictor";
+import { CommentaryFeed } from "../components/CommentaryFeed";
+
+const WEATHER_ICON: Record<string, string> = { clear: "☀", rain: "🌧", heavy: "⛈" };
 
 // MapLibre touches window -> client-only, no SSR.
 const HighwayMap = dynamic(() => import("../components/HighwayMap").then((m) => m.HighwayMap), {
@@ -19,6 +23,8 @@ export default function Page() {
   const corridor = CORRIDOR_LIST.find((c) => c.id === corridorId)!;
 
   const leaderProgress = Math.max(...Object.values(snapshot).map((c) => c.progress));
+  const weather = Object.values(snapshot)[0]?.weather ?? "clear";
+  const weatherInfo = WEATHER[weather];
 
   return (
     <main className="mx-auto flex min-h-screen max-w-[1500px] flex-col gap-4 p-4 md:p-6">
@@ -46,6 +52,7 @@ export default function Page() {
       </header>
 
       <div className="grid flex-1 grid-cols-1 gap-4 lg:grid-cols-[1fr_390px]">
+        <div className="flex min-w-0 flex-col gap-4">
         <section className="glass relative flex min-h-[560px] flex-col overflow-hidden">
           <div className="relative z-10 flex flex-wrap items-start justify-between gap-3 p-4">
             <div className="rounded-lg bg-[var(--color-ground)]/70 px-3 py-2 backdrop-blur">
@@ -56,6 +63,15 @@ export default function Page() {
               </div>
             </div>
             <div className="flex items-center gap-2">
+              <span
+                className="glass-soft rounded-lg px-3 py-1.5 text-xs font-semibold backdrop-blur"
+                title="Per-race weather (scales drag, cuts adhesion, worsens congestion)"
+                style={{
+                  color: weather === "clear" ? "var(--color-warn)" : "var(--color-accent)",
+                }}
+              >
+                {WEATHER_ICON[weather]} {weatherInfo.label}
+              </span>
               <button
                 onClick={toggleMapTheme}
                 className="glass-soft rounded-lg px-3 py-1.5 text-xs font-medium backdrop-blur hover:text-[var(--color-accent)]"
@@ -84,6 +100,9 @@ export default function Page() {
             <HighwayMap carsRef={carsRef} />
           </div>
         </section>
+
+          <CommentaryFeed cars={snapshot} />
+        </div>
 
         <aside className="glass min-h-[560px] p-4">
           <MLPredictor cars={snapshot} />

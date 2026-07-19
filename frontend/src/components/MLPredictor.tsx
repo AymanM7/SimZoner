@@ -5,6 +5,7 @@ import { VEHICLES, vehicleById } from "../lib/vehicles";
 import { CORRIDORS } from "../lib/corridors";
 import type { VehicleState } from "../lib/types";
 import { ModeBadge, Sparkline } from "./ui";
+import { WinOdds } from "./WinOdds";
 import metrics from "../data/model_metrics.json";
 
 const pct = (x: number, d = 1) => `${(x * 100).toFixed(d)}%`;
@@ -272,6 +273,9 @@ export function MLPredictor({ cars }: { cars: Record<string, VehicleState> }) {
           })}
         </div>
       </div>
+
+      {/* Live win odds — client-side Monte Carlo over the ETA bands (zero neurons) */}
+      <WinOdds cars={cars} />
 
       {/* Model — one place: trained models, overall metrics, per-vehicle */}
       <div className="glass-soft p-3">

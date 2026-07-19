@@ -1,27 +1,58 @@
 {
   "name": "race-outcome-logistic",
-  "engine_version": "v1",
+  "engine_version": "v2",
   "trained": true,
   "features": [
     "mass_diff_kg",
     "cda_diff_m2",
     "power_diff_kw",
     "hov_eligible_diff",
-    "risk_diff"
+    "risk_diff",
+    "cda_rho_diff",
+    "mass_mu_diff"
   ],
   "weights": [
-    6.991293602230448e-05,
-    1.6908724857866344,
-    0.004641304954268239,
-    1.1984867403769988,
-    3.352927527524044
+    -0.00015233887864124376,
+    0.2710623385247246,
+    0.0014822020902678973,
+    2.3137719183265433,
+    1.117544896289772,
+    0.5245572884858044,
+    -0.0004020237143283215
   ],
-  "bias": -0.05886180591782868,
+  "bias": 0.0075829903057291655,
   "metrics": {
-    "test_accuracy": 0.8829,
-    "gbm_test_accuracy": 0.8947,
-    "majority_baseline": 0.5058,
-    "n_rows": 11868
+    "protocol": "3 dataset seeds x StratifiedGroupKFold(5-fold) repeated 5x, grouped by race_id",
+    "n_estimates": 75,
+    "accuracy_mean": 0.738,
+    "accuracy_std": 0.0068,
+    "accuracy_fold_ci95": [
+      0.7364,
+      0.7395
+    ],
+    "auc_mean": 0.798,
+    "auc_std": 0.0069,
+    "auc_fold_ci95": [
+      0.7964,
+      0.7995
+    ],
+    "test_accuracy": 0.7319,
+    "test_accuracy_wilson_ci95": [
+      0.721,
+      0.7427
+    ],
+    "test_auc": 0.7919,
+    "test_auc_boot_ci95": [
+      0.781,
+      0.8026
+    ],
+    "gbm_cv_accuracy": 0.7376,
+    "majority_baseline": 0.5021,
+    "higher_risk_wins_baseline": 0.5336,
+    "lift_over_majority": 0.2358,
+    "n_rows": 31988,
+    "engine_version": "v2",
+    "note": "Synthetic benchmark. Agreement with SimZoner physics v2, not real vehicles."
   },
-  "note": "Synthetic benchmark. Measures agreement with SimZoner physics (engine v1), not real vehicles."
+  "note": "Synthetic benchmark. Measures agreement with SimZoner physics (engine v2), not real vehicles."
 }

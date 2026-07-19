@@ -2,7 +2,12 @@
 // against these so the pieces compose without guesswork.
 
 export type Mode = "Manual" | "Autopilot" | "FSD";
-export type CorridorId = "i45-houston-galveston" | "i35-south-austin" | "cincinnati-i71-75";
+export type CorridorId =
+  | "i45-houston-galveston"
+  | "i35-south-austin"
+  | "cincinnati-i71-75"
+  | "chicago-kennedy"
+  | "newyork-lie";
 
 export interface Vehicle {
   id: string;
@@ -26,8 +31,13 @@ export interface CorridorSection {
   speedLimitVerified: boolean;
   lanes: number;
   hovLanes: number;
+  gradePct?: number; // sustained road grade fraction (e.g. 0.06 = 6%); bridges/causeways
   notes?: string;
 }
+
+// Per-race weather. Scales drag (rho), cuts adhesion for re-accel (mu), and worsens
+// congestion (density). Drawn once per race from the seed.
+export type WeatherKind = "clear" | "rain" | "heavy";
 export interface Bottleneck {
   name: string;
   locationDesc: string;
@@ -57,6 +67,13 @@ export interface VehicleState {
   etaHi: number;
   history: number[];
   finished: boolean;
+  // v2 rebalance additions (see engine.ts). weather is shared by all cars in a race.
+  weather: WeatherKind;
+  onHov: boolean; // currently in an HOV-eligible (congestion-relieved) segment
+  incident: boolean; // currently losing time to a random driver-error / incident
+  // internal per-race sim bookkeeping (persisted on carsRef between frames)
+  stallSec: number; // remaining time-penalty seconds from an error/incident
+  lastSeg: number; // last section index entered (to fire per-segment events once)
 }
 
 // Backend /predict payload — the ML Predictor result for a selected vehicle.

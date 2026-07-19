@@ -55,9 +55,13 @@ export async function runAndStore(db: D1Database, opts: RunOptions) {
     const vehicle = await loadVehicle(db, req.vehicle_id);
     if (!vehicle) throw new Error(`unknown vehicle: ${req.vehicle_id}`);
     const occupancy = req.occupancy ?? 1;
+    // Waymo adopts SIMULATION_RULES AV_POLICY (B) "transit-equivalent": HOV-eligible wherever a
+    // segment has HOV lanes, regardless of occupancy. Others need occupancy >= 2. Kept in sync
+    // with ml/generate.py so serving matches the engine the v2 model was trained against.
+    const hov_eligible = vehicle.id === "waymo-ipace" ? true : occupancy >= 2;
     entrants.push({
       vehicle,
-      hov_eligible: occupancy >= 2,
+      hov_eligible,
       risk: PERSONA_RISK[vehicle.id] ?? 0.7,
     });
   }

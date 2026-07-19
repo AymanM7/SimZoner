@@ -25,8 +25,14 @@ interface RawCorridor {
   waymoReality?: string;
 }
 
-// Order = route-selector order: I-45, I-35 South, I-75 (Cincinnati).
-const IDS: CorridorId[] = ["i45-houston-galveston", "i35-south-austin", "cincinnati-i71-75"];
+// Order = route-selector order: I-45, I-35 South, I-75 (Cincinnati), Chicago, New York.
+const IDS: CorridorId[] = [
+  "i45-houston-galveston",
+  "i35-south-austin",
+  "cincinnati-i71-75",
+  "chicago-kennedy",
+  "newyork-lie",
+];
 const raw = corridorsData as unknown as Record<string, RawCorridor>;
 
 function build(id: CorridorId): Corridor {

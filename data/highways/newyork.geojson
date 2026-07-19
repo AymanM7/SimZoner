@@ -1,0 +1,174 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -73.968,
+            40.744
+          ],
+          [
+            -73.941,
+            40.7445
+          ],
+          [
+            -73.916,
+            40.736
+          ],
+          [
+            -73.885,
+            40.7345
+          ],
+          [
+            -73.828,
+            40.7375
+          ],
+          [
+            -73.809,
+            40.7405
+          ],
+          [
+            -73.785,
+            40.743
+          ],
+          [
+            -73.775,
+            40.744
+          ],
+          [
+            -73.759,
+            40.75
+          ],
+          [
+            -73.728,
+            40.756
+          ],
+          [
+            -73.7,
+            40.758
+          ],
+          [
+            -73.665,
+            40.762
+          ],
+          [
+            -73.615,
+            40.765
+          ],
+          [
+            -73.57,
+            40.768
+          ],
+          [
+            -73.49,
+            40.77
+          ],
+          [
+            -73.41,
+            40.772
+          ],
+          [
+            -73.31,
+            40.78
+          ],
+          [
+            -73.21,
+            40.79
+          ],
+          [
+            -73.113,
+            40.81
+          ],
+          [
+            -73.01,
+            40.816
+          ]
+        ]
+      },
+      "properties": {
+        "id": "newyork-lie",
+        "displayName": "I-495 Long Island Expressway (Queens-Midtown Tunnel to Medford)",
+        "lengthKm": 81.72,
+        "note": "Real I-495 Long Island Expressway alignment from the Queens-Midtown Tunnel western terminus east to NY-112 in Medford (exit 64), where the HOV lanes end. Endpoint and named interchange coordinates (Queens-Midtown Tunnel, I-678 Van Wyck, Little Neck Parkway exit 32 HOV start, Sagtikos State Parkway exit 53, NY-112 Medford exit 64 HOV end) are researched real locations; intermediate vertices are approximated to follow the actual highway curve for correct placement on map tiles."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.968,
+          40.744
+        ]
+      },
+      "properties": {
+        "corridorId": "newyork-lie",
+        "name": "Queens-Midtown Tunnel - western terminus",
+        "kind": "waypoint"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.828,
+          40.7375
+        ]
+      },
+      "properties": {
+        "corridorId": "newyork-lie",
+        "name": "I-678 Van Wyck Expressway interchange",
+        "kind": "waypoint"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.728,
+          40.756
+        ]
+      },
+      "properties": {
+        "corridorId": "newyork-lie",
+        "name": "Little Neck Parkway (exit 32) - HOV begins",
+        "kind": "waypoint"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.31,
+          40.78
+        ]
+      },
+      "properties": {
+        "corridorId": "newyork-lie",
+        "name": "Sagtikos State Parkway (exit 53)",
+        "kind": "waypoint"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.01,
+          40.816
+        ]
+      },
+      "properties": {
+        "corridorId": "newyork-lie",
+        "name": "NY-112 Medford (exit 64) - HOV ends",
+        "kind": "waypoint"
+      }
+    }
+  ]
+}

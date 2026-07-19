@@ -43,6 +43,7 @@
         "speedLimitVerified": false,
         "lanes": 6,
         "hovLanes": 0,
+        "gradePct": 0.05,
         "notes": "Single fixed-span crossing carrying all I-45 traffic onto the island (parallel to the railroad causeway). 65 mph estimated. This is the sole limited-access route to Galveston and a known chokepoint for weekend/beach and hurricane-evacuation traffic."
       },
       {
@@ -109,6 +110,7 @@
         "speedLimitVerified": false,
         "lanes": 4,
         "hovLanes": 0,
+        "gradePct": 0.03,
         "notes": "Urban Cincinnati freeway with the I-71/I-75 merge and closely spaced downtown ramps. 55 mph is the typical Ohio urban-interstate posting but was not confirmed against an official ODOT sign inventory for this segment. No HOV lanes exist."
       },
       {
@@ -117,6 +119,7 @@
         "speedLimitVerified": false,
         "lanes": 4,
         "hovLanes": 0,
+        "gradePct": 0.06,
         "notes": "Double-deck cantilevered truss: top deck carries Kentucky-bound (southbound) traffic, bottom deck Ohio-bound (northbound). Originally 3 lanes per direction with emergency shoulders; in 1985 the shoulders were eliminated and it was re-striped to 4 narrow lanes per direction with NO emergency shoulder. Designed for ~85,000 vehicles/day, carried ~150,000+ by 2006. Speed limit estimated (posted lower than approaches); not verified."
       },
       {
@@ -125,6 +128,7 @@
         "speedLimitVerified": false,
         "lanes": 4,
         "hovLanes": 0,
+        "gradePct": 0.03,
         "notes": "Kentucky approach through Covington with left-hand exits and heavy weaving into the bridge. 55 mph estimated; not verified. No HOV lanes."
       }
     ],
@@ -334,5 +338,149 @@
         "url": "https://www.equipmentworld.com/roadbuilding/article/15774495/txdot-i35-central-project-to-speed-up-in-2026"
       }
     ]
+  },
+  "chicago-kennedy": {
+    "displayName": "Kennedy Expressway I-90/94 (O'Hare to Jane Byrne Interchange, Chicago, IL)",
+    "lengthKm": 26.75,
+    "lengthMiles": 16.6,
+    "lengthNote": "Haversine length of the modeled polyline from the O'Hare area southeast to the Jane Byrne Interchange in downtown Chicago. The Kennedy Expressway is a nearly 18-mi (29 km) freeway overall per Wikipedia; this corridor models the O'Hare-to-downtown mainline. Treat as modeled/estimated, not a surveyed value.",
+    "sections": [
+      {
+        "name": "O'Hare area (I-190) to Kennedy/Edens junction",
+        "speedLimitMph": 55,
+        "speedLimitVerified": false,
+        "lanes": 8,
+        "hovLanes": 0,
+        "notes": "Northwest end of the Kennedy from the O'Hare feeder (I-190) where I-90/94 combine, running past Cumberland and Harlem Aves. NO reversible express lanes and NO HOV lanes in this segment; the reversible express lanes do not begin until the Edens junction. 55 mph is the standard Chicago expressway posting but was NOT confirmed against an official IDOT sign inventory. Lane count approximate."
+      },
+      {
+        "name": "Kennedy/Edens junction to Ohio Street (reversible express-lane segment)",
+        "speedLimitMph": 55,
+        "speedLimitVerified": false,
+        "lanes": 8,
+        "hovLanes": 0,
+        "notes": "This roughly 8-mi (13 km) middle segment carries the REVERSIBLE EXPRESS LANES in the median (2 lanes) in addition to the local/general lanes each direction. hovLanes is 0 because these are NOT occupancy HOV/carpool lanes - they are direction-managed express lanes open to all vehicles, flowing whichever way (inbound or outbound) staff have set them. Speed limit estimated; lane count approximate."
+      },
+      {
+        "name": "Ohio Street / Hubbard's Cave to Jane Byrne Interchange (downtown)",
+        "speedLimitMph": 55,
+        "speedLimitVerified": false,
+        "lanes": 8,
+        "hovLanes": 0,
+        "notes": "The reversible express lanes END just north of the Loop at Ohio Street; south of there all traffic is in general lanes through Hubbard's Cave (the covered section beneath rail lines) into the Jane Byrne Interchange. No managed/HOV lanes here. Speed limit estimated."
+      }
+    ],
+    "hovRule": {
+      "exists": false,
+      "occupancyMin": null,
+      "startPoint": null,
+      "endPoint": null,
+      "hours": null,
+      "source": "https://en.wikipedia.org/wiki/Kennedy_Expressway",
+      "notes": "HONEST NOTE: Chicago's Kennedy Expressway has NO occupancy-based HOV / carpool lanes. Its median 'express lanes' are REVERSIBLE, DIRECTION-MANAGED lanes: about 8 mi from the Kennedy/Edens junction to Ohio St, they carry two lanes flowing either inbound (toward the Loop) or outbound (toward O'Hare) depending on the time of day. Direction is switched roughly 2-3 times per day (typically opened inbound around midnight for the morning peak, then flipped to outbound around midday for the evening peak), controlled from a separate control center with steel-mesh barriers and breakaway gates. Eligibility is by DIRECTION and open gate, NOT by number of occupants - any vehicle may use the express lanes when they flow its way. So occupancyMin is null and hovLanes is 0 throughout; do not model these as carpool lanes."
+    },
+    "bottlenecks": [
+      {
+        "name": "Jane Byrne Interchange (formerly Circle Interchange)",
+        "locationDesc": "Downtown Chicago where I-90/94 (Kennedy/Dan Ryan) meets I-290 (Eisenhower) and Ida B. Wells Drive, at the south end of this corridor.",
+        "severityIndex": 0.95,
+        "reason": "Convergence of the Kennedy, Dan Ryan, and Eisenhower expressways with tight, closely spaced ramps; long ranked among the nation's most congested interchanges and the subject of a major multi-year reconstruction. Assigned near-maximum severity as the corridor's primary chokepoint.",
+        "source": "https://en.wikipedia.org/wiki/Kennedy_Expressway"
+      },
+      {
+        "name": "Kennedy mainline (Circle Interchange to Edens junction)",
+        "locationDesc": "The ~12 mi of the Kennedy between the Circle/Jane Byrne Interchange and the Edens junction.",
+        "severityIndex": 0.9,
+        "reason": "A 2015 traffic study identified this 12-mi stretch of the Kennedy as the nation's worst bottleneck; the expressway carries up to about 327,000 vehicles daily. High assigned severity reflects sustained peak congestion the reversible lanes only partly relieve.",
+        "source": "https://en.wikipedia.org/wiki/Kennedy_Expressway"
+      },
+      {
+        "name": "Hubbard's Cave",
+        "locationDesc": "Covered section of the Kennedy just north of the Loop (around Ohio/Ontario), where the road passes beneath multiple rail lines and the reversible lanes end.",
+        "severityIndex": 0.7,
+        "reason": "Lane drops as the reversible express lanes terminate at Ohio St and all traffic merges into the general lanes through the covered 'cave' section, creating a recurring downtown merge bottleneck.",
+        "source": "https://en.wikipedia.org/wiki/Kennedy_Expressway"
+      }
+    ],
+    "tolls": "The Kennedy Expressway mainline (I-90/94 from O'Hare to the Jane Byrne Interchange) is NOT tolled, and its reversible express lanes are NOT toll lanes - they are free, direction-managed express lanes. There is no toll price to quote. (West/northwest of O'Hare, I-90 continues as the tolled Jane Addams Memorial Tollway, a separate Illinois Tollway facility that is not the Kennedy mainline.)",
+    "tollsSource": "https://en.wikipedia.org/wiki/Kennedy_Expressway",
+    "waymoReality": "Modeled entity, not a real deployment. Waymo does NOT operate a driverless robotaxi service in Chicago or anywhere in Illinois as of mid-2026; its public driverless metros are Sun Belt / West Coast cities (Phoenix, San Francisco, Los Angeles, Atlanta, Austin, Dallas, San Antonio, Orlando, Miami, Nashville, Houston, plus newer markets like Las Vegas, Denver, San Diego, Tampa). Chicago is not among them, and Waymo paused all freeway rides in May 2026 regardless. Treat Waymo on this corridor as a purely simulated actor.",
+    "waymoRealitySource": "https://www.cnbc.com/2026/07/08/waymo-starts-driverless-rides-in-san-diego-las-vegas-tampa-denver.html"
+  },
+  "newyork-lie": {
+    "displayName": "I-495 Long Island Expressway (Queens-Midtown Tunnel to Medford, NY)",
+    "lengthKm": 81.72,
+    "lengthMiles": 50.8,
+    "lengthNote": "Haversine length of the modeled polyline from the Queens-Midtown Tunnel western terminus east to NY-112 in Medford (exit 64), where the HOV lanes end. The full LIE runs about 66 mi (106 km) to CR-58 in Riverhead per Wikipedia; this corridor models only the Manhattan-to-Medford (exit 64 / HOV-terminus) portion. Treat as modeled/estimated, not a surveyed value.",
+    "sections": [
+      {
+        "name": "Queens-Midtown Tunnel to I-678 Van Wyck Expressway (western Queens)",
+        "speedLimitMph": 50,
+        "speedLimitVerified": false,
+        "lanes": 6,
+        "hovLanes": 0,
+        "notes": "Dense urban Queens freeway beginning at the Queens-Midtown Tunnel. This westernmost segment has NO HOV lane (the HOV lanes do not begin until exit 32, Little Neck Parkway). Speed limit is a typical NYC urban-freeway posting and was NOT confirmed against an official NYSDOT sign inventory. Lane count is approximate; this stretch is the most chronically congested part of the LIE ('the world's longest parking lot')."
+      },
+      {
+        "name": "I-678 Van Wyck to Little Neck Parkway (exit 32, Queens-Nassau border)",
+        "speedLimitMph": 50,
+        "speedLimitVerified": false,
+        "lanes": 6,
+        "hovLanes": 0,
+        "notes": "Eastern Queens through the I-295 Clearview Expressway and Cross Island Parkway interchanges. Still no HOV lane in this segment; the median HOV lanes begin at exit 32 (Little Neck Parkway), right at the Queens-Nassau county line. Speed limit estimated."
+      },
+      {
+        "name": "Little Neck Parkway (exit 32) through Nassau County to Suffolk line",
+        "speedLimitMph": 55,
+        "speedLimitVerified": false,
+        "lanes": 7,
+        "hovLanes": 1,
+        "notes": "HOV lane begins here (one lane each direction, in the median). Passes the Northern State Parkway junction and Glen Cove Rd. Lane count is approximate (typically 3 general-purpose plus 1 HOV per direction). 55 mph estimated; historically a 40 mph MINIMUM speed was enforced in Nassau/Suffolk."
+      },
+      {
+        "name": "Suffolk County to NY-112 Medford (exit 64, HOV terminus)",
+        "speedLimitMph": 55,
+        "speedLimitVerified": false,
+        "lanes": 7,
+        "hovLanes": 1,
+        "notes": "Continues through the Sagtikos State Parkway (exit 53) and Ronkonkoma (Nicolls Rd, exit 62). The HOV lane ENDS at exit 64 (NY-112, Medford). East of exit 64 the LIE narrows (about 6 lanes) and there is NO managed lane; that eastern portion is beyond this modeled corridor. 55 mph estimated."
+      }
+    ],
+    "hovRule": {
+      "exists": true,
+      "occupancyMin": 2,
+      "startPoint": "Exit 32 (Little Neck Parkway), at the Queens-Nassau County border",
+      "endPoint": "Exit 64 (NY-112) in Medford, central Suffolk County. It does NOT continue east to the LIE terminus in Riverhead.",
+      "hours": "One HOV lane in each direction, in the median. Restricted Monday-Friday 6:00 a.m.-10:00 a.m. and 3:00 p.m.-8:00 p.m. in both directions to buses, motorcycles, and passenger vehicles carrying at least 2 occupants (HOV-2+). Trailers and commercial trucks are always prohibited. Outside those weekday windows (off-peak, overnight, weekends) the lane is open to all traffic. The NY Clean Pass program that previously let single-occupant clean-fuel/hybrid vehicles use the lane ended in 2025, so solo hybrids no longer qualify.",
+      "source": "https://en.wikipedia.org/wiki/Interstate_495_(New_York)",
+      "notes": "This is a REAL occupancy-based HOV facility (2+ persons required during peak windows), unlike Chicago's direction-managed reversible lanes."
+    },
+    "bottlenecks": [
+      {
+        "name": "Queens LIE / 'World's Longest Parking Lot'",
+        "locationDesc": "Western LIE through Queens between the Queens-Midtown Tunnel and the Nassau border, roughly the first 12-15 mi.",
+        "severityIndex": 0.9,
+        "reason": "The LIE through Queens is nationally infamous for recurring gridlock ('the world's longest parking lot'); rush-hour speeds in Queens have been reported averaging about 5 mph. No HOV relief exists west of exit 32. High assigned severity reflects chronic peak congestion in the densest segment.",
+        "source": "https://en.wikipedia.org/wiki/Interstate_495_(New_York)"
+      },
+      {
+        "name": "I-678 Van Wyck Expressway interchange",
+        "locationDesc": "LIE at the I-678 Van Wyck Expressway in Queens (feeder to JFK Airport), near Flushing Meadows.",
+        "severityIndex": 0.75,
+        "reason": "Major interstate-to-interstate weave feeding JFK Airport traffic onto/off the LIE, with heavy merging and closely spaced ramps. Moderate-to-high recurring congestion.",
+        "source": "https://en.wikipedia.org/wiki/Interstate_495_(New_York)"
+      },
+      {
+        "name": "Exit 32 (Little Neck Parkway) HOV lane start",
+        "locationDesc": "Queens-Nassau border, where the median HOV lanes begin/end.",
+        "severityIndex": 0.6,
+        "reason": "The transition point where HOV traffic forms up (eastbound) or merges back into general lanes (westbound) creates a recurring merge/weave bottleneck at the county line during peak windows.",
+        "source": "https://en.wikipedia.org/wiki/Interstate_495_(New_York)"
+      }
+    ],
+    "tolls": "The I-495 Long Island Expressway mainline is NOT tolled, and its HOV lanes are NOT toll (HOT) lanes - they are occupancy-only, free to any qualifying 2+ vehicle during restricted hours and open to all off-peak. There is no buy-in price to quote. (The Queens-Midtown Tunnel at the western terminus is a separate MTA Bridges and Tunnels toll facility and is not the LIE mainline.)",
+    "tollsSource": "https://en.wikipedia.org/wiki/Interstate_495_(New_York)",
+    "waymoReality": "Modeled entity, not a real deployment. Waymo does NOT operate a driverless robotaxi service in New York City or on the Long Island Expressway. New York State law has long required a human safety driver with hands on the wheel for autonomous testing, and Waymo's public driverless metros are western/southern/Sun Belt cities (Phoenix, San Francisco, Los Angeles, Atlanta, Austin, Dallas, San Antonio, Orlando, Miami, Nashville, Houston, plus newer markets). New York is not among them, and Waymo paused all freeway rides in May 2026 regardless. Treat Waymo on this corridor as a purely simulated actor.",
+    "waymoRealitySource": "https://www.cnbc.com/2026/07/08/waymo-starts-driverless-rides-in-san-diego-las-vegas-tampa-denver.html"
   }
 }

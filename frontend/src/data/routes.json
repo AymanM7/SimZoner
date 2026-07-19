@@ -467,6 +467,305 @@
         "name": "Austin arrival",
         "kind": "waypoint"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -87.905,
+            41.978
+          ],
+          [
+            -87.86,
+            41.976
+          ],
+          [
+            -87.838,
+            41.9725
+          ],
+          [
+            -87.807,
+            41.9685
+          ],
+          [
+            -87.785,
+            41.97
+          ],
+          [
+            -87.757,
+            41.968
+          ],
+          [
+            -87.74,
+            41.961
+          ],
+          [
+            -87.728,
+            41.954
+          ],
+          [
+            -87.712,
+            41.938
+          ],
+          [
+            -87.695,
+            41.925
+          ],
+          [
+            -87.68,
+            41.91
+          ],
+          [
+            -87.668,
+            41.903
+          ],
+          [
+            -87.652,
+            41.892
+          ],
+          [
+            -87.638,
+            41.8756
+          ]
+        ]
+      },
+      "properties": {
+        "id": "chicago-kennedy",
+        "displayName": "Kennedy Expressway I-90/94 (O'Hare to Jane Byrne Interchange)",
+        "lengthKm": 26.75,
+        "note": "Real Kennedy Expressway (I-90/94) alignment from the O'Hare area southeast to the Jane Byrne Interchange in downtown Chicago. Endpoint and named coordinates (O'Hare, Kennedy/Edens junction where the reversible express lanes begin, Ohio St / Hubbard's Cave where they end, Jane Byrne Interchange) are researched real locations; intermediate vertices are approximated to follow the actual highway curve for correct placement on map tiles. NOTE: the median lanes here are REVERSIBLE / direction-managed express lanes, NOT occupancy HOV/carpool lanes."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.905,
+          41.978
+        ]
+      },
+      "properties": {
+        "corridorId": "chicago-kennedy",
+        "name": "O'Hare area - corridor start",
+        "kind": "waypoint"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.757,
+          41.968
+        ]
+      },
+      "properties": {
+        "corridorId": "chicago-kennedy",
+        "name": "Kennedy / Edens junction - reversible express lanes begin",
+        "kind": "waypoint"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.652,
+          41.892
+        ]
+      },
+      "properties": {
+        "corridorId": "chicago-kennedy",
+        "name": "Ohio St / Hubbard's Cave - reversible express lanes end",
+        "kind": "waypoint"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.638,
+          41.8756
+        ]
+      },
+      "properties": {
+        "corridorId": "chicago-kennedy",
+        "name": "Jane Byrne Interchange",
+        "kind": "waypoint"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -73.968,
+            40.744
+          ],
+          [
+            -73.941,
+            40.7445
+          ],
+          [
+            -73.916,
+            40.736
+          ],
+          [
+            -73.885,
+            40.7345
+          ],
+          [
+            -73.828,
+            40.7375
+          ],
+          [
+            -73.809,
+            40.7405
+          ],
+          [
+            -73.785,
+            40.743
+          ],
+          [
+            -73.775,
+            40.744
+          ],
+          [
+            -73.759,
+            40.75
+          ],
+          [
+            -73.728,
+            40.756
+          ],
+          [
+            -73.7,
+            40.758
+          ],
+          [
+            -73.665,
+            40.762
+          ],
+          [
+            -73.615,
+            40.765
+          ],
+          [
+            -73.57,
+            40.768
+          ],
+          [
+            -73.49,
+            40.77
+          ],
+          [
+            -73.41,
+            40.772
+          ],
+          [
+            -73.31,
+            40.78
+          ],
+          [
+            -73.21,
+            40.79
+          ],
+          [
+            -73.113,
+            40.81
+          ],
+          [
+            -73.01,
+            40.816
+          ]
+        ]
+      },
+      "properties": {
+        "id": "newyork-lie",
+        "displayName": "I-495 Long Island Expressway (Queens-Midtown Tunnel to Medford)",
+        "lengthKm": 81.72,
+        "note": "Real I-495 Long Island Expressway alignment from the Queens-Midtown Tunnel western terminus east to NY-112 in Medford (exit 64), where the HOV lanes end. Endpoint and named interchange coordinates (Queens-Midtown Tunnel, I-678 Van Wyck, Little Neck Parkway exit 32 HOV start, Sagtikos State Parkway exit 53, NY-112 Medford exit 64 HOV end) are researched real locations; intermediate vertices are approximated to follow the actual highway curve for correct placement on map tiles."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.968,
+          40.744
+        ]
+      },
+      "properties": {
+        "corridorId": "newyork-lie",
+        "name": "Queens-Midtown Tunnel - western terminus",
+        "kind": "waypoint"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.828,
+          40.7375
+        ]
+      },
+      "properties": {
+        "corridorId": "newyork-lie",
+        "name": "I-678 Van Wyck Expressway interchange",
+        "kind": "waypoint"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.728,
+          40.756
+        ]
+      },
+      "properties": {
+        "corridorId": "newyork-lie",
+        "name": "Little Neck Parkway (exit 32) - HOV begins",
+        "kind": "waypoint"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.31,
+          40.78
+        ]
+      },
+      "properties": {
+        "corridorId": "newyork-lie",
+        "name": "Sagtikos State Parkway (exit 53)",
+        "kind": "waypoint"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.01,
+          40.816
+        ]
+      },
+      "properties": {
+        "corridorId": "newyork-lie",
+        "name": "NY-112 Medford (exit 64) - HOV ends",
+        "kind": "waypoint"
+      }
     }
   ]
 }

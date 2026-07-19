@@ -1,0 +1,85 @@
+{
+  "newyork-lie": {
+    "displayName": "I-495 Long Island Expressway (Queens-Midtown Tunnel to Medford, NY)",
+    "lengthKm": 81.72,
+    "lengthMiles": 50.8,
+    "lengthNote": "Haversine length of the modeled polyline from the Queens-Midtown Tunnel western terminus east to NY-112 in Medford (exit 64), where the HOV lanes end. The full LIE runs about 66 mi (106 km) to CR-58 in Riverhead per Wikipedia; this corridor models only the Manhattan-to-Medford (exit 64 / HOV-terminus) portion. Treat as modeled/estimated, not a surveyed value.",
+    "sections": [
+      {
+        "name": "Queens-Midtown Tunnel to I-678 Van Wyck Expressway (western Queens)",
+        "speedLimitMph": 50,
+        "speedLimitVerified": false,
+        "lanes": 6,
+        "hovLanes": 0,
+        "notes": "Dense urban Queens freeway beginning at the Queens-Midtown Tunnel. This westernmost segment has NO HOV lane (the HOV lanes do not begin until exit 32, Little Neck Parkway). Speed limit is a typical NYC urban-freeway posting and was NOT confirmed against an official NYSDOT sign inventory. Lane count is approximate; this stretch is the most chronically congested part of the LIE ('the world's longest parking lot')."
+      },
+      {
+        "name": "I-678 Van Wyck to Little Neck Parkway (exit 32, Queens-Nassau border)",
+        "speedLimitMph": 50,
+        "speedLimitVerified": false,
+        "lanes": 6,
+        "hovLanes": 0,
+        "notes": "Eastern Queens through the I-295 Clearview Expressway and Cross Island Parkway interchanges. Still no HOV lane in this segment; the median HOV lanes begin at exit 32 (Little Neck Parkway), right at the Queens-Nassau county line. Speed limit estimated."
+      },
+      {
+        "name": "Little Neck Parkway (exit 32) through Nassau County to Suffolk line",
+        "speedLimitMph": 55,
+        "speedLimitVerified": false,
+        "lanes": 7,
+        "hovLanes": 1,
+        "notes": "HOV lane begins here (one lane each direction, in the median). Passes the Northern State Parkway junction and Glen Cove Rd. Lane count is approximate (typically 3 general-purpose plus 1 HOV per direction). 55 mph estimated; historically a 40 mph MINIMUM speed was enforced in Nassau/Suffolk."
+      },
+      {
+        "name": "Suffolk County to NY-112 Medford (exit 64, HOV terminus)",
+        "speedLimitMph": 55,
+        "speedLimitVerified": false,
+        "lanes": 7,
+        "hovLanes": 1,
+        "notes": "Continues through the Sagtikos State Parkway (exit 53) and Ronkonkoma (Nicolls Rd, exit 62). The HOV lane ENDS at exit 64 (NY-112, Medford). East of exit 64 the LIE narrows (about 6 lanes) and there is NO managed lane; that eastern portion is beyond this modeled corridor. 55 mph estimated."
+      }
+    ],
+    "hovRule": {
+      "exists": true,
+      "occupancyMin": 2,
+      "startPoint": "Exit 32 (Little Neck Parkway), at the Queens-Nassau County border",
+      "endPoint": "Exit 64 (NY-112) in Medford, central Suffolk County. It does NOT continue east to the LIE terminus in Riverhead.",
+      "hours": "One HOV lane in each direction, in the median. Restricted Monday-Friday 6:00 a.m.-10:00 a.m. and 3:00 p.m.-8:00 p.m. in both directions to buses, motorcycles, and passenger vehicles carrying at least 2 occupants (HOV-2+). Trailers and commercial trucks are always prohibited. Outside those weekday windows (off-peak, overnight, weekends) the lane is open to all traffic. The NY Clean Pass program that previously let single-occupant clean-fuel/hybrid vehicles use the lane ended in 2025, so solo hybrids no longer qualify.",
+      "source": "https://en.wikipedia.org/wiki/Interstate_495_(New_York)",
+      "notes": "This is a REAL occupancy-based HOV facility (2+ persons required during peak windows), unlike Chicago's direction-managed reversible lanes."
+    },
+    "bottlenecks": [
+      {
+        "name": "Queens LIE / 'World's Longest Parking Lot'",
+        "locationDesc": "Western LIE through Queens between the Queens-Midtown Tunnel and the Nassau border, roughly the first 12-15 mi.",
+        "severityIndex": 0.9,
+        "reason": "The LIE through Queens is nationally infamous for recurring gridlock ('the world's longest parking lot'); rush-hour speeds in Queens have been reported averaging about 5 mph. No HOV relief exists west of exit 32. High assigned severity reflects chronic peak congestion in the densest segment.",
+        "source": "https://en.wikipedia.org/wiki/Interstate_495_(New_York)"
+      },
+      {
+        "name": "I-678 Van Wyck Expressway interchange",
+        "locationDesc": "LIE at the I-678 Van Wyck Expressway in Queens (feeder to JFK Airport), near Flushing Meadows.",
+        "severityIndex": 0.75,
+        "reason": "Major interstate-to-interstate weave feeding JFK Airport traffic onto/off the LIE, with heavy merging and closely spaced ramps. Moderate-to-high recurring congestion.",
+        "source": "https://en.wikipedia.org/wiki/Interstate_495_(New_York)"
+      },
+      {
+        "name": "Exit 32 (Little Neck Parkway) HOV lane start",
+        "locationDesc": "Queens-Nassau border, where the median HOV lanes begin/end.",
+        "severityIndex": 0.6,
+        "reason": "The transition point where HOV traffic forms up (eastbound) or merges back into general lanes (westbound) creates a recurring merge/weave bottleneck at the county line during peak windows.",
+        "source": "https://en.wikipedia.org/wiki/Interstate_495_(New_York)"
+      }
+    ],
+    "tolls": "The I-495 Long Island Expressway mainline is NOT tolled, and its HOV lanes are NOT toll (HOT) lanes - they are occupancy-only, free to any qualifying 2+ vehicle during restricted hours and open to all off-peak. There is no buy-in price to quote. (The Queens-Midtown Tunnel at the western terminus is a separate MTA Bridges and Tunnels toll facility and is not the LIE mainline.)",
+    "tollsSource": "https://en.wikipedia.org/wiki/Interstate_495_(New_York)",
+    "waymoReality": "Modeled entity, not a real deployment. Waymo does NOT operate a driverless robotaxi service in New York City or on the Long Island Expressway. New York State law has long required a human safety driver with hands on the wheel for autonomous testing, and Waymo's public driverless metros are western/southern/Sun Belt cities (Phoenix, San Francisco, Los Angeles, Atlanta, Austin, Dallas, San Antonio, Orlando, Miami, Nashville, Houston, plus newer markets). New York is not among them, and Waymo paused all freeway rides in May 2026 regardless. Treat Waymo on this corridor as a purely simulated actor.",
+    "waymoRealitySource": "https://www.cnbc.com/2026/07/08/waymo-starts-driverless-rides-in-san-diego-las-vegas-tampa-denver.html"
+  },
+  "sources": [
+    { "label": "Wikipedia - Interstate 495 (New York) / Long Island Expressway (HOV extent exit 32-64, 2+ occupancy, Mon-Fri 6-10 a.m. & 3-8 p.m., length ~66 mi, termini)", "url": "https://en.wikipedia.org/wiki/Interstate_495_(New_York)" },
+    { "label": "Hola Car Rentals - LIE HOV rules (2+ occupancy, hours, Clean Pass ended 2025)", "url": "https://holacarrentals.com/blogs/car-rental-united-states/new-york-car-hire-can-visitors-use-long-island-expressway-lie-hov-lanes-and-when" },
+    { "label": "East Coast Roads - Interstate 495 Long Island Expressway (interchanges, alignment)", "url": "https://www.eastcoastroads.com/states/ny/inter/i495" },
+    { "label": "CNBC - Waymo driverless metros as of July 2026 (New York not included)", "url": "https://www.cnbc.com/2026/07/08/waymo-starts-driverless-rides-in-san-diego-las-vegas-tampa-denver.html" }
+  ],
+  "disclaimer": "VERIFIED vs MODELED. Verified from cited sources: (1) the LIE (I-495) has REAL occupancy-based HOV-2+ lanes, one in each direction in the median; (2) they run from exit 32 (Little Neck Parkway, Queens-Nassau border) to exit 64 (NY-112, Medford, Suffolk); (3) restricted Mon-Fri 6-10 a.m. and 3-8 p.m. to buses, motorcycles, and 2+ occupant vehicles, with trailers/commercial trucks always banned and the lane open to all off-peak; (4) the Clean Pass solo-hybrid exemption ended in 2025; (5) the full LIE is about 66 mi from the Queens-Midtown Tunnel to Riverhead; (6) the Queens LIE is chronically congested ('world's longest parking lot'). MODELED / ESTIMATED (not surveyed): the corridor length (haversine of the modeled polyline, Manhattan to Medford only), ALL posted speed limits (speedLimitVerified=false - typical NYSDOT-region postings, not confirmed against a sign inventory), all per-section lane counts (approximate), and every bottleneck severityIndex (0..1 relative judgments, not measured). Do not treat estimated values as authoritative for engineering or legal purposes."
+}

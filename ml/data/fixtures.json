@@ -25,7 +25,7 @@
         "route_id": "chicago-kennedy",
         "seq": 0,
         "length_km": 10,
-        "hov_lanes": 0,
+        "hov_lanes": 1,
         "speed_limit_mph": 55,
         "grade_pct": 0,
         "traffic_density": 0.7
@@ -34,7 +34,7 @@
         "route_id": "chicago-kennedy",
         "seq": 1,
         "length_km": 12,
-        "hov_lanes": 0,
+        "hov_lanes": 1,
         "speed_limit_mph": 45,
         "grade_pct": 0,
         "traffic_density": 0.9
@@ -62,6 +62,15 @@
       {
         "route_id": "cincinnati-i71-75",
         "seq": 1,
+        "length_km": 4,
+        "hov_lanes": 0,
+        "speed_limit_mph": 55,
+        "grade_pct": 6,
+        "traffic_density": 0.8
+      },
+      {
+        "route_id": "cincinnati-i71-75",
+        "seq": 2,
         "length_km": 6,
         "hov_lanes": 0,
         "speed_limit_mph": 55,
@@ -70,7 +79,7 @@
       },
       {
         "route_id": "cincinnati-i71-75",
-        "seq": 2,
+        "seq": 3,
         "length_km": 10,
         "hov_lanes": 0,
         "speed_limit_mph": 65,
@@ -83,7 +92,7 @@
         "route_id": "i35-south-austin",
         "seq": 0,
         "length_km": 16,
-        "hov_lanes": 0,
+        "hov_lanes": 1,
         "speed_limit_mph": 70,
         "grade_pct": 1.5,
         "traffic_density": 0.4
@@ -92,7 +101,7 @@
         "route_id": "i35-south-austin",
         "seq": 1,
         "length_km": 14,
-        "hov_lanes": 0,
+        "hov_lanes": 1,
         "speed_limit_mph": 65,
         "grade_pct": 2,
         "traffic_density": 0.6
@@ -100,24 +109,33 @@
       {
         "route_id": "i35-south-austin",
         "seq": 2,
-        "length_km": 12,
+        "length_km": 5,
         "hov_lanes": 0,
+        "speed_limit_mph": 55,
+        "grade_pct": 6.5,
+        "traffic_density": 0.7
+      },
+      {
+        "route_id": "i35-south-austin",
+        "seq": 3,
+        "length_km": 12,
+        "hov_lanes": 1,
         "speed_limit_mph": 60,
         "grade_pct": 1,
         "traffic_density": 0.8
       },
       {
         "route_id": "i35-south-austin",
-        "seq": 3,
+        "seq": 4,
         "length_km": 16,
-        "hov_lanes": 0,
+        "hov_lanes": 1,
         "speed_limit_mph": 65,
         "grade_pct": 1.5,
         "traffic_density": 0.6
       },
       {
         "route_id": "i35-south-austin",
-        "seq": 4,
+        "seq": 5,
         "length_km": 12,
         "hov_lanes": 0,
         "speed_limit_mph": 55,
@@ -148,7 +166,7 @@
         "route_id": "i45-houston-galveston",
         "seq": 2,
         "length_km": 12,
-        "hov_lanes": 0,
+        "hov_lanes": 1,
         "speed_limit_mph": 65,
         "grade_pct": 0,
         "traffic_density": 0.4

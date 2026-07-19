@@ -1,0 +1,78 @@
+{
+  "chicago-kennedy": {
+    "displayName": "Kennedy Expressway I-90/94 (O'Hare to Jane Byrne Interchange, Chicago, IL)",
+    "lengthKm": 26.75,
+    "lengthMiles": 16.6,
+    "lengthNote": "Haversine length of the modeled polyline from the O'Hare area southeast to the Jane Byrne Interchange in downtown Chicago. The Kennedy Expressway is a nearly 18-mi (29 km) freeway overall per Wikipedia; this corridor models the O'Hare-to-downtown mainline. Treat as modeled/estimated, not a surveyed value.",
+    "sections": [
+      {
+        "name": "O'Hare area (I-190) to Kennedy/Edens junction",
+        "speedLimitMph": 55,
+        "speedLimitVerified": false,
+        "lanes": 8,
+        "hovLanes": 0,
+        "notes": "Northwest end of the Kennedy from the O'Hare feeder (I-190) where I-90/94 combine, running past Cumberland and Harlem Aves. NO reversible express lanes and NO HOV lanes in this segment; the reversible express lanes do not begin until the Edens junction. 55 mph is the standard Chicago expressway posting but was NOT confirmed against an official IDOT sign inventory. Lane count approximate."
+      },
+      {
+        "name": "Kennedy/Edens junction to Ohio Street (reversible express-lane segment)",
+        "speedLimitMph": 55,
+        "speedLimitVerified": false,
+        "lanes": 8,
+        "hovLanes": 0,
+        "notes": "This roughly 8-mi (13 km) middle segment carries the REVERSIBLE EXPRESS LANES in the median (2 lanes) in addition to the local/general lanes each direction. hovLanes is 0 because these are NOT occupancy HOV/carpool lanes - they are direction-managed express lanes open to all vehicles, flowing whichever way (inbound or outbound) staff have set them. Speed limit estimated; lane count approximate."
+      },
+      {
+        "name": "Ohio Street / Hubbard's Cave to Jane Byrne Interchange (downtown)",
+        "speedLimitMph": 55,
+        "speedLimitVerified": false,
+        "lanes": 8,
+        "hovLanes": 0,
+        "notes": "The reversible express lanes END just north of the Loop at Ohio Street; south of there all traffic is in general lanes through Hubbard's Cave (the covered section beneath rail lines) into the Jane Byrne Interchange. No managed/HOV lanes here. Speed limit estimated."
+      }
+    ],
+    "hovRule": {
+      "exists": false,
+      "occupancyMin": null,
+      "startPoint": null,
+      "endPoint": null,
+      "hours": null,
+      "source": "https://en.wikipedia.org/wiki/Kennedy_Expressway",
+      "notes": "HONEST NOTE: Chicago's Kennedy Expressway has NO occupancy-based HOV / carpool lanes. Its median 'express lanes' are REVERSIBLE, DIRECTION-MANAGED lanes: about 8 mi from the Kennedy/Edens junction to Ohio St, they carry two lanes flowing either inbound (toward the Loop) or outbound (toward O'Hare) depending on the time of day. Direction is switched roughly 2-3 times per day (typically opened inbound around midnight for the morning peak, then flipped to outbound around midday for the evening peak), controlled from a separate control center with steel-mesh barriers and breakaway gates. Eligibility is by DIRECTION and open gate, NOT by number of occupants - any vehicle may use the express lanes when they flow its way. So occupancyMin is null and hovLanes is 0 throughout; do not model these as carpool lanes."
+    },
+    "bottlenecks": [
+      {
+        "name": "Jane Byrne Interchange (formerly Circle Interchange)",
+        "locationDesc": "Downtown Chicago where I-90/94 (Kennedy/Dan Ryan) meets I-290 (Eisenhower) and Ida B. Wells Drive, at the south end of this corridor.",
+        "severityIndex": 0.95,
+        "reason": "Convergence of the Kennedy, Dan Ryan, and Eisenhower expressways with tight, closely spaced ramps; long ranked among the nation's most congested interchanges and the subject of a major multi-year reconstruction. Assigned near-maximum severity as the corridor's primary chokepoint.",
+        "source": "https://en.wikipedia.org/wiki/Kennedy_Expressway"
+      },
+      {
+        "name": "Kennedy mainline (Circle Interchange to Edens junction)",
+        "locationDesc": "The ~12 mi of the Kennedy between the Circle/Jane Byrne Interchange and the Edens junction.",
+        "severityIndex": 0.9,
+        "reason": "A 2015 traffic study identified this 12-mi stretch of the Kennedy as the nation's worst bottleneck; the expressway carries up to about 327,000 vehicles daily. High assigned severity reflects sustained peak congestion the reversible lanes only partly relieve.",
+        "source": "https://en.wikipedia.org/wiki/Kennedy_Expressway"
+      },
+      {
+        "name": "Hubbard's Cave",
+        "locationDesc": "Covered section of the Kennedy just north of the Loop (around Ohio/Ontario), where the road passes beneath multiple rail lines and the reversible lanes end.",
+        "severityIndex": 0.7,
+        "reason": "Lane drops as the reversible express lanes terminate at Ohio St and all traffic merges into the general lanes through the covered 'cave' section, creating a recurring downtown merge bottleneck.",
+        "source": "https://en.wikipedia.org/wiki/Kennedy_Expressway"
+      }
+    ],
+    "tolls": "The Kennedy Expressway mainline (I-90/94 from O'Hare to the Jane Byrne Interchange) is NOT tolled, and its reversible express lanes are NOT toll lanes - they are free, direction-managed express lanes. There is no toll price to quote. (West/northwest of O'Hare, I-90 continues as the tolled Jane Addams Memorial Tollway, a separate Illinois Tollway facility that is not the Kennedy mainline.)",
+    "tollsSource": "https://en.wikipedia.org/wiki/Kennedy_Expressway",
+    "waymoReality": "Modeled entity, not a real deployment. Waymo does NOT operate a driverless robotaxi service in Chicago or anywhere in Illinois as of mid-2026; its public driverless metros are Sun Belt / West Coast cities (Phoenix, San Francisco, Los Angeles, Atlanta, Austin, Dallas, San Antonio, Orlando, Miami, Nashville, Houston, plus newer markets like Las Vegas, Denver, San Diego, Tampa). Chicago is not among them, and Waymo paused all freeway rides in May 2026 regardless. Treat Waymo on this corridor as a purely simulated actor.",
+    "waymoRealitySource": "https://www.cnbc.com/2026/07/08/waymo-starts-driverless-rides-in-san-diego-las-vegas-tampa-denver.html"
+  },
+  "sources": [
+    { "label": "Wikipedia - Kennedy Expressway (reversible express lanes Edens junction to Ohio St ~8 mi, ~18 mi total, 327k vehicles/day, 2015 worst-bottleneck study, Jane Byrne Interchange, Hubbard's Cave)", "url": "https://en.wikipedia.org/wiki/Kennedy_Expressway" },
+    { "label": "TravelMidwest / IDOT FAQ - Kennedy reversible lanes schedule (switch direction 2-3x/day, inbound overnight/morning then outbound midday)", "url": "https://travelmidwest.com/Help/FAQs" },
+    { "label": "Illinois Lt. Gov. / IDOT - Kennedy rehabilitation and reversible express lanes press release", "url": "https://ltgov.illinois.gov/news/press-release.29677.html" },
+    { "label": "Wikipedia - Interstate 90 in Illinois (Kennedy carries I-90/I-94, 55 mph)", "url": "https://en.wikipedia.org/wiki/Interstate_90_in_Illinois" },
+    { "label": "CNBC - Waymo driverless metros as of July 2026 (Chicago not included)", "url": "https://www.cnbc.com/2026/07/08/waymo-starts-driverless-rides-in-san-diego-las-vegas-tampa-denver.html" }
+  ],
+  "disclaimer": "VERIFIED vs MODELED. Verified from cited sources: (1) the Kennedy Expressway has NO occupancy HOV/carpool lanes - its median lanes are REVERSIBLE, direction-managed express lanes; (2) they run about 8 mi from the Kennedy/Edens junction to Ohio St just north of the Loop, switching direction roughly 2-3 times per day (inbound for the morning peak, outbound for the evening peak) via a control center with steel-mesh barriers and breakaway gates, open to all vehicles by direction (not by occupancy); (3) the Kennedy is nearly 18 mi overall and carries I-90/I-94; (4) it handles up to about 327,000 vehicles/day and a 2015 study ranked the Circle-to-Edens stretch the nation's worst bottleneck; (5) the Jane Byrne (Circle) Interchange with I-290 and Hubbard's Cave are the key chokepoints; (6) the mainline is non-tolled (the separate Jane Addams Tollway is not the Kennedy). MODELED / ESTIMATED (not surveyed): the corridor length (haversine of the modeled polyline, O'Hare to Jane Byrne only), ALL posted speed limits (speedLimitVerified=false - 55 mph is the standard Chicago expressway posting but not confirmed against an IDOT sign inventory), all per-section lane counts (approximate), and every bottleneck severityIndex (0..1 relative judgments, not measured). Do not treat estimated values as authoritative for engineering or legal purposes."
+}
